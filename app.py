@@ -28,4 +28,52 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = "signin"
 
+@app.route('/', methods=["GET", "POST"])
+@login_required
+def index():
+    if flask.request.method == "POST":
+        data = flask.request.form
+        # newUserForm = 
+        newUser = Users(userName= data["r_username"] )
+        # newPass = Users(password= data["r_password"])
 
+        # Flask form for Username 
+        db.session.add(newUser)
+        db.session.commit()
+    return flask.render_template( "login.html")
+
+@app.route('/signin', methods = ["GET","POST"])
+def signin():
+    
+    if flask.request.method == "POST":
+        
+        print(flask.request.form.get('username'))
+        u_name= flask.request.form.get('username')
+        if Users.query.filter_by(userName=u_name).first():
+            flash("User Authenticated")
+            print("User Found")
+            return flask.render_template( "index.html")
+            
+        else:  
+            flash("User Not Found")
+            print("User Not found", u_name)
+            return flask.render_template("login.html")
+
+
+    return flask.render_template("login.html")
+
+
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    flash('You were logged out.')
+    return redirect(url_for('signin'))
+
+
+app.run(
+    host=os.getenv('IP', '0.0.0.0'),
+    port=int(os.getenv('PORT', 8080)),
+    debug=True
+    
+)
