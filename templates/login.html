@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="static/style.css" />
+    </head>
+    <body>
+        <div class='container'>
+
+            <form method="POST" action="/signin">
+
+                <input type="text" placeholder="Username" name="username"/>
+                <input type="submit" value="Sign In"/>
+                
+            </form>
+
+
+            <form method="POST" action="/">
+
+                <input type="text" placeholder="Username" name="r_username"/>
+                <input type="submit" value="Register"/>
+                
+            </form>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+            {% endif %}
+            {% endwith %}
+
+        </div>
+
+
+
+    </body>
+
+
+
+</html>
