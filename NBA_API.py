@@ -41,3 +41,11 @@ def get_player_info(id):
     reb = playerdict["data"][0][5]
     pie = playerdict["data"][0][6]
     return (name, time_frame, pts, ast, reb, pie)
+
+
+def get_player_games_between_dates(date_from, date_to, id):
+    gamelog_all = playergamelog.PlayerGameLog(
+        player_id=id, date_from_nullable=date_from, date_to_nullable=date_to
+    )
+    games_all = gamelog_all.get_dict()
+    return games_all
