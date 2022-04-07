@@ -2,6 +2,8 @@ from nba_api.stats.endpoints import commonplayerinfo
 from nba_api.stats.static import players
 from nba_api.stats.library.parameters import SeasonAll
 from nba_api.stats.endpoints import playergamelog
+import numpy as np
+import pandas as pd
 
 player_info = commonplayerinfo.CommonPlayerInfo(player_id=2544)
 playerdict = player_info.player_headline_stats.get_dict()
@@ -21,8 +23,12 @@ df_bron_games_all = gamelog_bron_all.get_dict()
 gamelog_bron_all = playergamelog.PlayerGameLog(
     player_id="2544", date_from_nullable="12/25/2020", date_to_nullable="12/25/2021"
 )
-df_bron_games_all = gamelog_bron_all.get_dict()
+df_bron_games_all = gamelog_bron_all.get_data_frames()
+df = pd.DataFrame(df_bron_games_all[0])
+df2 = df["PTS"].mean()
+
 print(df_bron_games_all)
+print(df2)
 
 
 def get_player_id(name):
