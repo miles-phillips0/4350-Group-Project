@@ -1,0 +1,18 @@
+body{
+    /* background-color: #e91e63; */
+    font-family: Arial;
+    margin: 0 auto;
+    /* background: url("https://wallpaperaccess.com/full/1305370.jpg")  center fixed;  */
+    background: url("NBA.jpeg")  center fixed; 
+    
+    
+}
+
+.container{
+    margin: 0 auto;
+    width: 60%;
+    text-align: center;
+    border-style: inset;
+    /*background-color: black */
+    
+}
