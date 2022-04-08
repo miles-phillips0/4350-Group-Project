@@ -3,9 +3,19 @@
 
 <head>
     <link rel="stylesheet" href="static/style.css" />
+
+
+
 </head>
 
 <body>
+    <div class="userName">
+        {% for user in users %}
+        <div>
+            <h3>{{user.email}}'s profile</h3>
+        </div>
+        {% endfor %}
+    </div>
     <div id=logout class="logout">
         <a href="{{url_for('logout')}}">Log Out</a>
     </div>
@@ -31,6 +41,7 @@
             {%endfor%}
         </o2>
     </div>
+
 
 
 

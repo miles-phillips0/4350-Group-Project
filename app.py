@@ -94,6 +94,7 @@ def addPlayer():
 @app.route("/home", methods=["GET", "POST"])
 @login_required
 def home():
+    users = [current_user]
     if flask.request.method == "POST":
         data = flask.request.form
         playerName = data["playerSearch"]
@@ -106,7 +107,7 @@ def home():
         averageAssists = round(playerGamelog["AST"].mean(), 2)
         len_results = 1
         print(playerGamelog)
-        print("POST")
+
         return flask.render_template(
             "index.html",
             len_results=len_results,
@@ -114,10 +115,11 @@ def home():
             averageAssists=averageAssists,
             averagePoints=averagePoints,
             averageRebounds=averageRebounds,
+            users=users,
         )
     print("GET")
 
-    return flask.render_template("index.html", len_results=0)
+    return flask.render_template("index.html", len_results=0, users=users)
 
 
 @app.route("/signin", methods=["GET", "POST"])
@@ -135,7 +137,6 @@ def signin():
             flash("Password Not Entered")
             return flask.render_template("login.html")
         user = Users.query.filter_by(email=email).first()
-
         if user:
             if bcrypt.checkpw(password.encode("utf-8"), user.hash):
                 login_user(user)

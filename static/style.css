@@ -7,9 +7,9 @@ body {
 
 .cell {
     float: left;
-    padding: 20;
+    padding: 40;
     border: 5px white;
-    font-size: 25;
+    font-size: 35;
     margin-left: 30;
 }
 
@@ -22,4 +22,12 @@ body {
 
 .logout {
     text-align: right;
+}
+
+.userName {
+    text-align: right;
+}
+
+h3 {
+    font-family: papyrus;
 }
