@@ -53,7 +53,7 @@ def get_player_info(id):
     ast = playerdict["data"][0][4]
     reb = playerdict["data"][0][5]
     pie = playerdict["data"][0][6]
-    return (name, time_frame, pts, ast, reb, pie)
+    return ("Name:",name, "Time Frame:",time_frame, "Points:",pts, "Assists:",ast, "Rebounds:",reb, pie)
 
 
 def get_player_games_between_dates(date_from, date_to, id):
@@ -63,3 +63,5 @@ def get_player_games_between_dates(date_from, date_to, id):
     games_all = gamelog_all.get_data_frames()
     df = pd.DataFrame(games_all[0])
     return df
+
+print(get_player_info(get_player_id("Trae Young")))
