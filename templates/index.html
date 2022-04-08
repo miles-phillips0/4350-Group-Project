@@ -3,6 +3,9 @@
 
 <head>
     <link rel="stylesheet" href="static/style.css" />
+
+
+
 </head>
 
 <body>
@@ -15,6 +18,9 @@
         <input type="submit" value="Submit">
     </form>
 
+    <a href="{{url_for('logout')}}">Logout</a>
+
+
     <div id=player class="cell small-12 medium-4 large-4">
         Trae Young(player name)
     </div>
@@ -24,7 +30,14 @@
     </div>
 
 
-    <a href="{{url_for('logout')}}">Logout</a>
+    {% for user in users %}
+    <div>
+        <h3>{{user.email}}'s profile</h3>
+    </div>
+    {% endfor %}
+
+
+
 </body>
 
 

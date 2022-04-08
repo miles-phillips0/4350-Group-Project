@@ -33,6 +33,7 @@ print(df2)
 """
 
 
+
 def get_player_id(name):
     """Function to search for player's id using NBA_API with a string as input"""
     if name is not None and len(name) > 0:
