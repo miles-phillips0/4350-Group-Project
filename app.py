@@ -5,7 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 import flask
 from dotenv import load_dotenv, find_dotenv
 
-
+#Loading .env Postgres DB & Secret Keys
 load_dotenv(find_dotenv())
 
 app = flask.Flask(__name__)
@@ -19,6 +19,7 @@ app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
+#Created table for Users to be added to
 
 class Users(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -26,6 +27,7 @@ class Users(db.Model):
 
 db.create_all()
 
+#Flask Login Manager 
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = "signin"
@@ -34,21 +36,20 @@ login_manager.login_view = "signin"
 def load_user(user_id):
     return Users.query.get(int(user_id))
 
-
+#Register Method
 @app.route('/', methods=["GET", "POST"])
 @login_required
 def index():
     if flask.request.method == "POST":
         data = flask.request.form
-        # newUserForm = 
         newUser = Users(userName= data["r_username"] )
-        # newPass = Users(password= data["r_password"])
 
         # Flask form for Username 
         db.session.add(newUser)
         db.session.commit()
     return flask.render_template( "login.html")
 
+#Signin Method
 @app.route('/signin', methods = ["GET","POST"])
 def signin():
     
