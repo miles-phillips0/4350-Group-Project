@@ -1,9 +1,7 @@
 from nba_api.stats.endpoints import commonplayerinfo
 from nba_api.stats.static import players
-from nba_api.stats.library.parameters import SeasonAll
 from nba_api.stats.endpoints import playergamelog
 import pandas as pd
-import matplotlib.pyplot as plt
 
 """"
 Meant for testing code will delete later
@@ -34,20 +32,21 @@ plt.show(block=True)
 print(df2)
 """
 
-# if name != None:
+
 def get_player_id(name):
     """Function to search for player's id using NBA_API with a string as input"""
     if name is not None and len(name) > 0:
         players_list = players.find_players_by_full_name(name)
         if not players_list:
-            # Checks if players_list is empty and if it is returns None
+            # Checks if list is empty and if it is returns None
             return None
         return players_list[0]["id"]
     return None
 
 
-def get_player_info(id):
-    player_info = commonplayerinfo.CommonPlayerInfo(player_id=id)
+def get_player_info(player_id):
+    """Function to return HeadLine data for specific player id"""
+    player_info = commonplayerinfo.CommonPlayerInfo(player_id=player_id))
     playerdict = player_info.player_headline_stats.get_dict()
     name = playerdict["data"][0][1]
     time_frame = playerdict["data"][0][2]
@@ -58,13 +57,21 @@ def get_player_info(id):
     return (name, time_frame, pts, ast, reb, pie)
 
 
-def get_player_games_between_dates(date_from, date_to, id):
+def get_player_games_between_dates(date_from, date_to, player_id):
+    """Function to return panda dataframe with info from all games a player has played from and to specific dates"""
+    if None in (date_from, date_to, player_id):
+        return None
     gamelog_all = playergamelog.PlayerGameLog(
-        player_id=id, date_from_nullable=date_from, date_to_nullable=date_to
+        player_id=player_id, date_from_nullable=date_from, date_to_nullable=date_to
     )
     games_all = gamelog_all.get_data_frames()
     df = pd.DataFrame(games_all[0])
+    if df.empty:
+        return "No games for this player during time"
     return df
 
 
+"""
 print(get_player_id("ngmjskfdngfjksa"))
+print(get_player_games_between_dates("12/25/2021", "12/25/2020", "2544"))
+"""

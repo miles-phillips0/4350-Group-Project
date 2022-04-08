@@ -3,7 +3,9 @@ from unittest.mock import patch
 from NBA_API import get_player_id, get_player_games_between_dates
 
 
-class get_player_id_tests(unittest.TestCase):
+class GetPlayerIdTests(unittest.TestCase):
+    """Tests the get_player_id function"""
+
     def test_none(self):
         self.assertEqual(get_player_id(None), None)
 
@@ -12,6 +14,28 @@ class get_player_id_tests(unittest.TestCase):
 
     def test_fake_name(self):
         self.assertEqual(get_player_id("ngmjskfdngfjksa"), None)
+
+    def test_real_name(self):
+        self.assertEqual(get_player_id("Lebron James"), 2544)
+
+
+class GetPlayerGamesTests(unittest.TestCase):
+    def test_none(self):
+        self.assertEqual(
+            get_player_games_between_dates("12/25/2020", "12/25/2021", None), None
+        )
+
+    def test_fake_player_id(self):
+        self.assertEqual(
+            get_player_games_between_dates("12/25/2020", "12/25/2021", "1000000"),
+            "No games for this player during time",
+        )
+
+    def test_reversed_to_from_dates(self):
+        self.assertEqual(
+            get_player_games_between_dates("12/25/2021", "12/25/2020", "2544"),
+            "No games for this player during time",
+        )
 
 
 """"
