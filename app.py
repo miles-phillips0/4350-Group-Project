@@ -13,21 +13,25 @@ from dotenv import load_dotenv, find_dotenv
 import bcrypt
 from sqlalchemy.dialects.postgresql import BYTEA
 
-
+#Loading .env Postgres DB & Secret Keys
 load_dotenv(find_dotenv())
 
 app = flask.Flask(__name__)
+
 app.config["SEND_FILE_MAX_AGE_DEFAULT"] = 0
 app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("HEROKU_POSTGRESQL_IVORY_URL")
 if app.config["SQLALCHEMY_DATABASE_URI"].startswith("postgres://"):
     app.config["SQLALCHEMY_DATABASE_URI"] = app.config[
         "SQLALCHEMY_DATABASE_URI"
     ].replace("postgres://", "postgresql://")
+
+
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 
 
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
+#Created table for Users to be added to
 
 
 class User(db.Model):
@@ -38,6 +42,7 @@ class User(db.Model):
 
 db.create_all()
 
+#Flask Login Manager 
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = "signin"
@@ -46,6 +51,7 @@ login_manager.login_view = "signin"
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
+
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -72,7 +78,10 @@ def index():
     return flask.render_template("login.html")
 
 
+
+
 @app.route("/signin", methods=["GET", "POST"])
+
 def signin():
 
     if flask.request.method == "POST":
