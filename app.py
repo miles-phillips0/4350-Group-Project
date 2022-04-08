@@ -38,7 +38,6 @@ def load_user(user_id):
 
 #Register Method
 @app.route('/', methods=["GET", "POST"])
-# @login_required
 def index():
     if flask.request.method == "POST":
         data = flask.request.form
