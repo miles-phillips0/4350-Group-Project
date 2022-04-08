@@ -7,7 +7,6 @@ import matplotlib.pyplot as plt
 
 """"
 Meant for testing code will delete later
-
 player_info = commonplayerinfo.CommonPlayerInfo(player_id=2544)
 playerdict = player_info.player_headline_stats.get_dict()
 print(playerdict)
@@ -16,7 +15,6 @@ Players = players.find_players_by_full_name("Lebron James")
 test = Players[0]
 print(Players)
 print(test["id"])
-
 gamelog_bron_all = playergamelog.PlayerGameLog(player_id="2544")
 df_bron_games_all = gamelog_bron_all.get_dict()
 ##print(df_bron_games_all["resultSets"][0]["rowSet"][0])
@@ -29,7 +27,6 @@ gamelog_bron_all = playergamelog.PlayerGameLog(
 df_bron_games_all = gamelog_bron_all.get_data_frames()
 df = pd.DataFrame(df_bron_games_all[0])
 df2 = df["PTS"].mean()
-
 ##print(df_bron_games_all)
 df.plot(x="AST", y="PTS", kind="scatter")
 print(plt.get_backend())
@@ -37,11 +34,16 @@ plt.show(block=True)
 print(df2)
 """
 
-
+# if name != None:
 def get_player_id(name):
-    playersList = players.find_players_by_full_name(name)
-    player = playersList[0]
-    return player["id"]
+    """Function to search for player's id using NBA_API with a string as input"""
+    if name is not None and len(name) > 0:
+        players_list = players.find_players_by_full_name(name)
+        if not players_list:
+            # Checks if players_list is empty and if it is returns None
+            return None
+        return players_list[0]["id"]
+    return None
 
 
 def get_player_info(id):
@@ -63,3 +65,6 @@ def get_player_games_between_dates(date_from, date_to, id):
     games_all = gamelog_all.get_data_frames()
     df = pd.DataFrame(games_all[0])
     return df
+
+
+print(get_player_id("ngmjskfdngfjksa"))
