@@ -5,3 +5,5 @@ flask_SQLAlchemy
 flask_login
 psycopg2
 bcrypt
+nba_api
+pandas

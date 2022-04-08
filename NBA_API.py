@@ -3,6 +3,7 @@ from nba_api.stats.static import players
 from nba_api.stats.endpoints import playergamelog
 import pandas as pd
 
+
 """"
 Meant for testing code will delete later
 player_info = commonplayerinfo.CommonPlayerInfo(player_id=2544)
@@ -44,6 +45,7 @@ def get_player_id(name):
     return None
 
 
+
 def get_player_info(player_id):
     """Function to return HeadLine data for specific player id"""
     player_info = commonplayerinfo.CommonPlayerInfo(player_id=player_id)
@@ -62,7 +64,8 @@ def get_player_games_between_dates(date_from, date_to, player_id):
     if None in (date_from, date_to, player_id):
         return None
     gamelog_all = playergamelog.PlayerGameLog(
-        player_id=player_id, date_from_nullable=date_from, date_to_nullable=date_to
+        player_id=str(id), date_from_nullable=date_from, date_to_nullable=date_to
+
     )
     games_all = gamelog_all.get_data_frames()
     df = pd.DataFrame(games_all[0])
