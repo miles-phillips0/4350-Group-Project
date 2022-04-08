@@ -1,4 +1,5 @@
 <html>
+
 <head>
     <link rel="stylesheet" href="static/style.css" />
     <style>
@@ -25,33 +26,42 @@
         </style>
         <div class='container'>
 
-            <form method="POST" action="/signin">
+<head>
+    <link rel="stylesheet" href="static/style.css" />
+</head>
 
-                <input type="text" placeholder="Username" name="username"/>
-                <input type="submit" value="Sign In"/>
-                
-            </form>
+<body>
+    <div class='container'>
 
+        <form method="POST" action="/signin">
 
-            <form method="POST" action="/">
+            <input type="text" placeholder="Email" name="email" />
+            <input type="text" placeholder="Password" name="password" />
+            <input type="submit" value="Sign In" />
 
-                <input type="text" placeholder="Username" name="r_username"/>
-                <input type="submit" value="Register"/>
-                
-            </form>
-            {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                {% for message in messages %}
-                    {{ message }}
-                {% endfor %}
-            {% endif %}
-            {% endwith %}
-
-        </div>
+        </form>
 
 
+        <form method="POST" action="/">
 
-    </body>
+            <input type="text" placeholder="Email" name="r_email" />
+            <input type="text" placeholder="Password" name="r_password" />
+            <input type="submit" value="Register" />
+
+        </form>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+        {{ message }}
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+    </div>
+
+
+
+</body>
 
 
 
