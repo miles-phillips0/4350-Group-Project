@@ -33,7 +33,6 @@ print(df2)
 """
 
 
-
 def get_player_id(name):
     """Function to search for player's id using NBA_API with a string as input"""
     if name is not None and len(name) > 0:
@@ -47,7 +46,7 @@ def get_player_id(name):
 
 def get_player_info(player_id):
     """Function to return HeadLine data for specific player id"""
-    player_info = commonplayerinfo.CommonPlayerInfo(player_id=player_id))
+    player_info = commonplayerinfo.CommonPlayerInfo(player_id=player_id)
     playerdict = player_info.player_headline_stats.get_dict()
     name = playerdict["data"][0][1]
     time_frame = playerdict["data"][0][2]
