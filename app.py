@@ -60,13 +60,14 @@ def index():
         if password == "":
             flash("Password Not Entered")
             return flask.render_template("login.html")
-        hashed = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt())
-        newUser = User(email=email, hash=hashed)
-        db.session.add(newUser)
-        db.session.commit()
-        user = User.query.filter_by(email=email).first()
-        if bcrypt.checkpw(password.encode("utf-8"), user.hash):
-            print("success")
+
+        if not User.query.filter_by(email=email).first():
+            hashed = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt())
+            newUser = User(email=email, hash=hashed)
+            db.session.add(newUser)
+            db.session.commit()
+            return flask.render_template("login.html")
+        flash(f"{email} is already registered")
 
     return flask.render_template("login.html")
 
