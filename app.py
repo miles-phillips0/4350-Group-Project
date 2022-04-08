@@ -13,7 +13,7 @@ from dotenv import load_dotenv, find_dotenv
 import bcrypt
 from sqlalchemy.dialects.postgresql import BYTEA
 
-#Loading .env Postgres DB & Secret Keys
+# Loading .env Postgres DB & Secret Keys
 load_dotenv(find_dotenv())
 
 app = flask.Flask(__name__)
@@ -31,7 +31,7 @@ app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
-#Created table for Users to be added to
+# Created table for Users to be added to
 
 
 class User(db.Model):
@@ -42,7 +42,7 @@ class User(db.Model):
 
 db.create_all()
 
-#Flask Login Manager 
+# Flask Login Manager
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = "signin"
@@ -77,9 +77,7 @@ def index():
     return flask.render_template("login.html")
 
 
-
 @app.route("/signin", methods=["GET", "POST"])
-
 def signin():
 
     if flask.request.method == "POST":
@@ -98,6 +96,8 @@ def signin():
         if user:
             if bcrypt.checkpw(password.encode("utf-8"), user.hash):
                 return flask.render_template("index.html")
+            flash(f"Incorrect Password for {email}")
+            return flask.render_template("login.html")
 
         else:
             flash("User not found")
