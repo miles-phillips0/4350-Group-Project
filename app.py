@@ -1,4 +1,5 @@
 import os
+from NBA_API import get_player_id
 from flask_login import (
     login_user,
     LoginManager,
@@ -77,8 +78,18 @@ def index():
     return flask.render_template("login.html")
 
 
+# @app.route("/home", methods=["GET", "POST"])
+# def addPlayer():
+# return flask.render_template("index.html")
+
+
 @app.route("/signin", methods=["GET", "POST"])
 def signin():
+
+    data = flask.request.form
+    email = data.get("email")
+
+    users = User.query.filter_by(email=email).all()
 
     if flask.request.method == "POST":
 
@@ -95,7 +106,11 @@ def signin():
 
         if user:
             if bcrypt.checkpw(password.encode("utf-8"), user.hash):
-                return flask.render_template("index.html")
+                return flask.render_template(
+                    "index.html",
+                    users=users,
+                )
+
             flash(f"Incorrect Password for {email}")
             return flask.render_template("login.html")
 
