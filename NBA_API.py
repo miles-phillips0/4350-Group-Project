@@ -4,7 +4,6 @@ from nba_api.stats.static import players
 from nba_api.stats.endpoints import playergamelog
 import pandas as pd
 
-
 def get_player_id(name):
     """Function to search for player's id using NBA_API with a string as input"""
     if name is not None and len(name) > 0:
@@ -14,6 +13,7 @@ def get_player_id(name):
             return None
         return players_list[0]["id"]
     return None
+
 
 
 def get_player_info(player_id):
@@ -34,7 +34,8 @@ def get_player_games_between_dates(date_from, date_to, player_id):
     if None in (date_from, date_to, player_id):
         return None
     gamelog_all = playergamelog.PlayerGameLog(
-        player_id=player_id, date_from_nullable=date_from, date_to_nullable=date_to
+        player_id=str(id), date_from_nullable=date_from, date_to_nullable=date_to
+
     )
     print(gamelog_all)
     games_all = gamelog_all.get_data_frames()
