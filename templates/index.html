@@ -6,25 +6,35 @@
 </head>
 
 <body>
-
+    <div id=logout class="logout">
+        <a href="{{url_for('logout')}}">Log Out</a>
+    </div>
     <img src="/static/logo.png" alt="NBA Logo" width="450" height="250">
 
     <h2>Ball Watchers</h2>
-    <form>
+    <form method="POST" action="/home">
         <input type="text" name="playerSearch" placeholder="Search your favorite Player">
         <input type="submit" value="Submit">
     </form>
 
-    <div id=player class="cell small-12 medium-4 large-4">
-        Trae Young(player name)
+    <div class="results">
+        <o2>
+            {%for i in range(0,len_results)%}
+            <li>
+                {{playerName}} averages for 2021 : {{averagePoints}} PTS, {{averageAssists}} AST, {{averageRebounds}}
+                REB
+                <form method="POST" action="/add">
+                    <input type="submit" , value="add">
+                    <input type="hidden" name="btn_id" value="{{playerName}}">
+                </form>
+            </li>
+            {%endfor%}
+        </o2>
     </div>
 
-    <div id=info class="cell2 small-12 medium-8 large-8">
-        Stats go here 30 - 10 - 10 - 5 - 6
-    </div>
 
 
-    <a href="{{url_for('logout')}}">Logout</a>
+
 </body>
 
 

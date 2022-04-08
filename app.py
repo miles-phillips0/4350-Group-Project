@@ -2,6 +2,7 @@ import os
 from flask_login import (
     login_user,
     LoginManager,
+    UserMixin,
     login_required,
     logout_user,
     current_user,
@@ -11,7 +12,9 @@ from flask_sqlalchemy import SQLAlchemy
 import flask
 from dotenv import load_dotenv, find_dotenv
 import bcrypt
-from sqlalchemy.dialects.postgresql import BYTEA
+from sqlalchemy.dialects.postgresql import BYTEA, ARRAY
+from NBA_API import get_player_id, get_player_info, get_player_games_between_dates
+import pandas as pd
 
 # Loading .env Postgres DB & Secret Keys
 load_dotenv(find_dotenv())
@@ -34,10 +37,15 @@ db = SQLAlchemy(app)
 # Created table for Users to be added to
 
 
-class User(db.Model):
+class Users(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), nullable=False)
     hash = db.Column(BYTEA, nullable=False)
+    roster = db.Column(db.String(120), default="")
+
+    @property
+    def getRoster(self):
+        return [int(x) for x in self.roster.split(";")]
 
 
 db.create_all()
@@ -50,7 +58,7 @@ login_manager.login_view = "signin"
 
 @login_manager.user_loader
 def load_user(user_id):
-    return User.query.get(int(user_id))
+    return Users.query.get(int(user_id))
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -66,15 +74,50 @@ def index():
             flash("Password Not Entered")
             return flask.render_template("login.html")
 
-        if not User.query.filter_by(email=email).first():
+        if not Users.query.filter_by(email=email).first():
             hashed = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt())
-            newUser = User(email=email, hash=hashed)
+            newUser = Users(email=email, hash=hashed, roster="")
             db.session.add(newUser)
             db.session.commit()
             return flask.render_template("login.html")
         flash(f"{email} is already registered")
 
     return flask.render_template("login.html")
+
+
+@app.route("/add", methods=["GET", "POST"])
+@login_required
+def addPlayer():
+    return 0
+
+
+@app.route("/home", methods=["GET", "POST"])
+@login_required
+def home():
+    if flask.request.method == "POST":
+        data = flask.request.form
+        playerName = data["playerSearch"]
+        playerID = str(get_player_id(playerName))
+        playerGamelog = get_player_games_between_dates(
+            "12/25/2020", "12/25/2021", playerID
+        )
+        averagePoints = round(playerGamelog["PTS"].mean(), 2)
+        averageRebounds = round(playerGamelog["REB"].mean(), 2)
+        averageAssists = round(playerGamelog["AST"].mean(), 2)
+        len_results = 1
+        print(playerGamelog)
+        print("POST")
+        return flask.render_template(
+            "index.html",
+            len_results=len_results,
+            playerName=playerName,
+            averageAssists=averageAssists,
+            averagePoints=averagePoints,
+            averageRebounds=averageRebounds,
+        )
+    print("GET")
+
+    return flask.render_template("index.html", len_results=0)
 
 
 @app.route("/signin", methods=["GET", "POST"])
@@ -91,11 +134,12 @@ def signin():
         if password == "":
             flash("Password Not Entered")
             return flask.render_template("login.html")
-        user = User.query.filter_by(email=email).first()
+        user = Users.query.filter_by(email=email).first()
 
         if user:
             if bcrypt.checkpw(password.encode("utf-8"), user.hash):
-                return flask.render_template("index.html")
+                login_user(user)
+                return flask.redirect("/home")
             flash(f"Incorrect Password for {email}")
             return flask.render_template("login.html")
 

@@ -19,3 +19,7 @@ body {
     padding: 20;
     margin-right: 30;
 }
+
+.logout {
+    text-align: right;
+}
