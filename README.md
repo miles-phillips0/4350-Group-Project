@@ -12,4 +12,6 @@ Using the NBA_API we allow you to keep track of some of your favorite basketball
 
 Heroku Link: `https://limitless-lake-88828.herokuapp.com/`
 
+## Linting
+
 Collaborators: Rayaan Chowdhury, Miles Phillips, Inesh Raj, Kevin Rodgers
