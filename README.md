@@ -11,6 +11,7 @@ Using the NBA_API we allow you to keep track of some of your favorite basketball
 
 
 Heroku Link: `https://limitless-lake-88828.herokuapp.com/`
+Note - we realized Friday night that the nba_api that we use has heroku blacklisted. We are currently looking into solutions to this problem.
 
 ## Linting
 
