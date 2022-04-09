@@ -99,15 +99,24 @@ def home():
     if flask.request.method == "POST":
         data = flask.request.form
         playerName = data["playerSearch"]
-        playerID = str(get_player_id(playerName))
+        playerID = get_player_id(playerName)
         playerGamelog = get_player_games_between_dates(
             "12/25/2020", "12/25/2021", playerID
         )
+
+        try:
+            emptydf = playerGamelog.empty
+            print(emptydf)
+        except AttributeError:
+            return flask.render_template("index.html", len_results=0, users=users)
+
+        if emptydf:
+            return flask.render_template("index.html", len_results=0, users=users)
+
         averagePoints = round(playerGamelog["PTS"].mean(), 2)
         averageRebounds = round(playerGamelog["REB"].mean(), 2)
         averageAssists = round(playerGamelog["AST"].mean(), 2)
         len_results = 1
-        print(playerGamelog)
 
         return flask.render_template(
             "index.html",
@@ -118,19 +127,12 @@ def home():
             averageRebounds=averageRebounds,
             users=users,
         )
-    print("GET")
 
     return flask.render_template("index.html", len_results=0, users=users)
 
 
 @app.route("/signin", methods=["GET", "POST"])
 def signin():
-
-    data = flask.request.form
-    email = data.get("email")
-
-    users = Users.query.filter_by(email=email).all()
-
     if flask.request.method == "POST":
 
         data = flask.request.form
