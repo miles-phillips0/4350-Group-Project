@@ -36,12 +36,8 @@ def get_player_games_between_dates(date_from, date_to, player_id):
     gamelog_all = playergamelog.PlayerGameLog(
         player_id=player_id, date_from_nullable=date_from, date_to_nullable=date_to
     )
-    print(gamelog_all)
     games_all = gamelog_all.get_data_frames()
     pd_df = pd.DataFrame(games_all[0])
     if pd_df.empty:
         return "No games for this player during time"
     return pd_df
-
-
-get_player_games_between_dates("12/25/2021", "12/25/2020", "2544")

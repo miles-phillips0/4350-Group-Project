@@ -2,11 +2,20 @@
 import unittest
 from unittest.mock import patch
 from NBA_API import get_player_id, get_player_games_between_dates
-import pandas as pd
 
 
-def lebron_id(name):
-    return 2544
+def lebron(name):
+    # pylint: disable=unused-argument
+    """mock function to return what it should return if lebron was searched by API"""
+    return [
+        {
+            "id": 2544,
+            "full_name": "LeBron James",
+            "first_name": "LeBron",
+            "last_name": "James",
+            "is_active": True,
+        }
+    ]
 
 
 class GetPlayerIdTests(unittest.TestCase):
@@ -25,8 +34,18 @@ class GetPlayerIdTests(unittest.TestCase):
         self.assertEqual(get_player_id("ngmjskfdngfjksa"), None)
 
     def test_real_name(self):
-        """Unit test to see if funct returns player's name if input is valid player id"""
+        """Unit test to see if funct returns player's id if input is valid player name"""
         self.assertEqual(get_player_id("Lebron James"), 2544)
+
+    with patch("NBA_API.players.find_players_by_full_name", lebron):
+
+        def test_mock_real_name(self):
+            """Unit test to see if funct returns player's id if input is valid player name"""
+            self.assertEqual(get_player_id("Lebron James"), 2544)
+
+        def test_mock_close_name(self):
+            """Unit test to see if funct returns player's id if input is close to valid player name"""
+            self.assertEqual(get_player_id("Lebron Ja"), 2544)
 
 
 class GetPlayerGamesTests(unittest.TestCase):
