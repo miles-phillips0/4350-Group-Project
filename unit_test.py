@@ -44,7 +44,7 @@ class GetPlayerIdTests(unittest.TestCase):
             self.assertEqual(get_player_id("Lebron James"), 2544)
 
         def test_mock_close_name(self):
-            """Unit test to see if funct returns player's id if input is close to valid player name"""
+            """Unit test to see if funct returns player's id if input is close to player name"""
             self.assertEqual(get_player_id("Lebron Ja"), 2544)
 
 
