@@ -35,13 +35,28 @@
                 {{playerName}} averages for 2021 : {{averagePoints}} PTS, {{averageAssists}} AST, {{averageRebounds}}
                 REB
                 <form method="POST" action="/add">
+
                     <input type="submit" , value="add">
-                    <input type="hidden" name="btn_id" value="{{playerName}}">
+                    <input type="hidden" name="btn_id" value={{playerId}}>
                 </form>
             </li>
             {%endfor%}
         </o2>
 
+    </div>
+
+    <div class="roster">
+
+        {% if len_roster == 0 %}
+        <h4>Search to Add Players to Your Roster!</h4>
+        {% else %}
+        <h1>{{users[0].email}}'s Roster:</h1>
+        {% endif %}
+        {% for i in range(0,len_roster) %}
+        <li>
+            {{playerNames[i]}}: {{pts[i]}} pts, {{ast[i]}} ast, {{reb[i]}} reb, {{pie[i]}} pie ({{time_frame[i]}})
+        </li>
+        {% endfor %}
     </div>
 
 
