@@ -111,16 +111,24 @@ def home():
     users = [current_user]
     roster = current_user.roster.split(";")
     len_roster = len(roster)
+    if len_roster == 1 and roster[0] == "":
+        len_roster -= 1
     playerNames = [""] * len_roster
     time_frame = [""] * len_roster
     pts = [0] * len_roster
     ast = [0] * len_roster
     reb = [0] * len_roster
     pie = [0] * len_roster
-    for i in range(0, len_roster):
-        playerNames[i], time_frame[i], pts[i], ast[i], reb[i], pie[i] = get_player_info(
-            roster[i]
-        )
+    if len_roster > 0:
+        for i in range(0, len_roster):
+            (
+                playerNames[i],
+                time_frame[i],
+                pts[i],
+                ast[i],
+                reb[i],
+                pie[i],
+            ) = get_player_info(roster[i])
     if flask.request.method == "POST":
         data = flask.request.form
         playerName = data["playerSearch"]
