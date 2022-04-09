@@ -1,4 +1,5 @@
 """File with functions to handle nba_api calls"""
+# pylint: disable=invalid-name
 from nba_api.stats.endpoints import commonplayerinfo
 from nba_api.stats.static import players
 from nba_api.stats.endpoints import playergamelog
