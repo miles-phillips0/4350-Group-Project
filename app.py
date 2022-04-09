@@ -103,11 +103,14 @@ def home():
         playerGamelog = get_player_games_between_dates(
             "12/25/2020", "12/25/2021", playerID
         )
-        print(type(playerGamelog))
+
         try:
             emptydf = playerGamelog.empty
+            print(emptydf)
         except AttributeError:
-            flash("No games for this player during time")
+            return flask.render_template("index.html", len_results=0, users=users)
+
+        if emptydf:
             return flask.render_template("index.html", len_results=0, users=users)
 
         averagePoints = round(playerGamelog["PTS"].mean(), 2)

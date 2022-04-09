@@ -42,7 +42,3 @@ def get_player_games_between_dates(date_from, date_to, player_id):
 
     df = pd.DataFrame(games_all[0])
     return df
-
-
-get_player_games_between_dates("12/25/2021", "12/25/2020", "2544")
-
