@@ -86,7 +86,6 @@ def index():
     return flask.render_template("login.html")
 
 
-
 @app.route("/add", methods=["GET", "POST"])
 @login_required
 def addPlayer():
@@ -124,14 +123,13 @@ def home():
     return flask.render_template("index.html", len_results=0, users=users)
 
 
-
 @app.route("/signin", methods=["GET", "POST"])
 def signin():
 
     data = flask.request.form
     email = data.get("email")
 
-    users = User.query.filter_by(email=email).all()
+    users = Users.query.filter_by(email=email).all()
 
     if flask.request.method == "POST":
 
