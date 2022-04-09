@@ -13,6 +13,7 @@ def get_player_id(name):
         if not players_list:
             # Checks if list is empty and if it is returns None
             return None
+
         return players_list[0]["id"]
     return None
 
@@ -38,7 +39,6 @@ def get_player_games_between_dates(date_from, date_to, player_id):
         player_id=player_id, date_from_nullable=date_from, date_to_nullable=date_to
     )
     games_all = gamelog_all.get_data_frames()
-    pd_df = pd.DataFrame(games_all[0])
-    if pd_df.empty:
-        return "No games for this player during time"
-    return pd_df
+
+    df = pd.DataFrame(games_all[0])
+    return df
