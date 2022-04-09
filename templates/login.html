@@ -3,11 +3,10 @@
 <head>
     <link rel="stylesheet" href="static/style.css" />
     <style>
-
         body {
             /* background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-CvRj7tT4PdciZIcH9AresTUr9q6upLodAUNvqR426fTtBmdNY6nZumfWduEp6wS0dlY&usqp=CAU"); */
             background-repeat: no-repeat;
-            height: 100%; 
+            height: 100%;
 
             /* background: url("https://wallpaperaccess.com/full/1305339.jpg")  center fixed;  */
             /* background: url("https://wallpaperaccess.com/full/1305370.jpg")  center fixed;  */
@@ -15,53 +14,57 @@
         }
     </style>
 
-        
+
 </head>
 
 <!-- <Body background="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-CvRj7tT4PdciZIcH9AresTUr9q6upLodAUNvqR426fTtBmdNY6nZumfWduEp6wS0dlY&usqp=CAU">  -->
-    <body>
-        <div class="bg"></div>
-
-        
-        </style>
-        <div class='container'>
-
-<head>
-    <link rel="stylesheet" href="static/style.css" />
-</head>
 
 <body>
+    <div class="bg"></div>
+
+
+    </style>
     <div class='container'>
 
-        <form method="POST" action="/signin">
+        <head>
+            <link rel="stylesheet" href="static/style.css" />
+        </head>
 
-            <input type="text" placeholder="Email" name="email" />
-            <input type="text" placeholder="Password" name="password" />
-            <input type="submit" value="Sign In" />
+        <body>
 
-        </form>
+            <h3 style="font-family:Papyrus">Join and track all your favorite ballers!</h1>
+                <img src="/static/animation.gif" alt="NBA Logo" width="400" height="350">
+                <div class='container'>
 
+                    <form method="POST" action="/signin">
 
-        <form method="POST" action="/">
+                        <input type="text" placeholder="Email" name="email" />
+                        <input type="text" placeholder="Password" name="password" />
+                        <input type="submit" value="Sign In" />
 
-            <input type="text" placeholder="Email" name="r_email" />
-            <input type="text" placeholder="Password" name="r_password" />
-            <input type="submit" value="Register" />
-
-        </form>
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-        {% for message in messages %}
-        {{ message }}
-        {% endfor %}
-        {% endif %}
-        {% endwith %}
-
-    </div>
+                    </form>
 
 
+                    <form method="POST" action="/">
 
-</body>
+                        <input type="text" placeholder="Email" name="r_email" />
+                        <input type="text" placeholder="Password" name="r_password" />
+                        <input type="submit" value="Register" />
+
+                    </form>
+                    {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                    {% for message in messages %}
+                    {{ message }}
+                    {% endfor %}
+                    {% endif %}
+                    {% endwith %}
+
+                </div>
+
+
+
+        </body>
 
 
 
