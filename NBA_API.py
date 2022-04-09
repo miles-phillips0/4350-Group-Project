@@ -36,7 +36,7 @@ def get_player_games_between_dates(date_from, date_to, player_id):
     if None in (date_from, date_to, player_id):
         return None
     gamelog_all = playergamelog.PlayerGameLog(
-        player_id=str(player_id), date_from_nullable=date_from, date_to_nullable=date_to
+        player_id=player_id, date_from_nullable=date_from, date_to_nullable=date_to
     )
     games_all = gamelog_all.get_data_frames()
 
