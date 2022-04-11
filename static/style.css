@@ -20,10 +20,11 @@ body {
     margin-right: 30;
 }
 
-a:hover {
-    color: white;
+
+.logout {
+    text-align: right;
 }
 
-h3 {
-    font-family: papyrus;
+.userName {
+    text-align: right;
 }
