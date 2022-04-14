@@ -89,13 +89,46 @@ def index():
 @app.route("/add", methods=["GET", "POST"])
 @login_required
 def addPlayer():
-    return 0
+    users = [current_user]
+    if flask.request.method == "POST":
+        data = flask.request.form
+        roster = current_user.roster.split(";")
+        newPlayerId = str(data["btn_id"])
+        if len(current_user.roster) == 0:
+            current_user.roster += newPlayerId
+        elif newPlayerId not in roster:
+            current_user.roster += f";{newPlayerId}"
+        else:
+            return flask.redirect("/home")
+        db.session.commit()
+
+    return flask.redirect("/home")
 
 
 @app.route("/home", methods=["GET", "POST"])
 @login_required
 def home():
     users = [current_user]
+    roster = current_user.roster.split(";")
+    len_roster = len(roster)
+    if len_roster == 1 and roster[0] == "":
+        len_roster -= 1
+    playerNames = [""] * len_roster
+    time_frame = [""] * len_roster
+    pts = [0] * len_roster
+    ast = [0] * len_roster
+    reb = [0] * len_roster
+    pie = [0] * len_roster
+    if len_roster > 0:
+        for i in range(0, len_roster):
+            (
+                playerNames[i],
+                time_frame[i],
+                pts[i],
+                ast[i],
+                reb[i],
+                pie[i],
+            ) = get_player_info(roster[i])
     if flask.request.method == "POST":
         data = flask.request.form
         playerName = data["playerSearch"]
@@ -106,18 +139,17 @@ def home():
 
         try:
             emptydf = playerGamelog.empty
-            print(emptydf)
+
         except AttributeError:
-            return flask.render_template("index.html", len_results=0, users=users)
+            return flask.redirect("/home")
 
         if emptydf:
-            return flask.render_template("index.html", len_results=0, users=users)
+            return flask.redirect("/home")
 
         averagePoints = round(playerGamelog["PTS"].mean(), 2)
         averageRebounds = round(playerGamelog["REB"].mean(), 2)
         averageAssists = round(playerGamelog["AST"].mean(), 2)
         len_results = 1
-
         return flask.render_template(
             "index.html",
             len_results=len_results,
@@ -126,9 +158,28 @@ def home():
             averagePoints=averagePoints,
             averageRebounds=averageRebounds,
             users=users,
+            playerId=playerID,
+            len_roster=len_roster,
+            playerNames=playerNames,
+            time_frame=time_frame,
+            pts=pts,
+            ast=ast,
+            reb=reb,
+            pie=pie,
         )
 
-    return flask.render_template("index.html", len_results=0, users=users)
+    return flask.render_template(
+        "index.html",
+        len_results=0,
+        users=users,
+        len_roster=len_roster,
+        playerNames=playerNames,
+        time_frame=time_frame,
+        pts=pts,
+        ast=ast,
+        reb=reb,
+        pie=pie,
+    )
 
 
 @app.route("/signin", methods=["GET", "POST"])
