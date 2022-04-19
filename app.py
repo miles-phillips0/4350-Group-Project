@@ -49,7 +49,7 @@ class Users(UserMixin, db.Model):
         return [int(x) for x in self.roster.split(";")]
 
 
-db.create_all()
+# db.create_all()
 
 # Flask Login Manager
 login_manager = LoginManager()
@@ -80,6 +80,8 @@ def index():
             newUser = Users(email=email, hash=hashed, roster="")
             db.session.add(newUser)
             db.session.commit()
+            flash("User Registered!")
+
             return flask.render_template("login.html")
         flash(f"{email} is already registered")
 
