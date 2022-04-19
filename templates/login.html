@@ -33,16 +33,22 @@
         <body>
 
             <h3 style="font-family:Papyrus">Join and track all your favorite ballers!</h1>
-                <img src="/static/ball.gif" alt="NBA Logo" width="400" height="350">
-                <div class='container'>
+                <!--<img src="/static/ball.gif" alt="NBA Logo" width="325" height="275">-->
+                <div class='containerbod'>
 
 
-                    Log In
+                    <div id="avatar">
+
+                    </div>
+
+
+                    <label for="email"><b>Log In</b></label>
                     <form method="POST" action="/signin">
 
                         <input type="text" placeholder="Email" name="email" />
                         <input type="text" placeholder="Password" name="password" />
-                        <input type="submit" value="Sign In" />
+
+                        <button type="submit">Sign In</button>
 
                     </form>
 
@@ -51,7 +57,7 @@
 
                         <input type="text" placeholder="Email" name="r_email" />
                         <input type="text" placeholder="Password" name="r_password" />
-                        <input type="submit" value="Register" />
+                        <button type="submit">Register</button>
 
                     </form>
                     {% with messages = get_flashed_messages() %}
