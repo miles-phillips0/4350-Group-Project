@@ -29,3 +29,7 @@ body {
 .userName {
     text-align: right;
 }
+
+.roster {
+    line-height: 1.7;
+}
