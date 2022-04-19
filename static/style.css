@@ -3,6 +3,8 @@ body {
     font-size: 40;
     text-align: center;
     background-image: url("NBA.jpeg");
+    background-image: url("backgroundimg.jpg");
+    background-size: cover;
 }
 
 .cell {
@@ -27,4 +29,8 @@ body {
 
 .userName {
     text-align: right;
+}
+
+.roster {
+    line-height: 1.7;
 }
