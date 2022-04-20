@@ -14,7 +14,7 @@ import flask
 from dotenv import load_dotenv, find_dotenv
 import bcrypt
 from sqlalchemy.dialects.postgresql import BYTEA, ARRAY
-from NBA_API import get_player_id, get_player_info, get_player_games_between_dates
+from NBA_API import get_player_id, get_player_info, get_player_games_between_dates, get_advanced_player_info
 import pandas as pd
 
 # Loading .env Postgres DB & Secret Keys
@@ -256,7 +256,7 @@ def home():
                 jersey[i],
                 position[i]
                 
-            ) = get_player_info(roster[i])
+            ) = get_advanced_player_info(roster[i])
         averagePPG = 0
         for game in pts:
             averagePPG += game
@@ -279,7 +279,7 @@ def home():
         avgPpg=round(averagePPG, 2)
     )
 
-#  Adding Players to ROster
+#  Adding Players to Roster
 @app.route("/add", methods=["GET", "POST"])
 @login_required
 def addPlayer():
