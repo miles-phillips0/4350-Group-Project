@@ -37,3 +37,58 @@ body {
 li {
     display: inline;
   }
+=======
+
+button {
+    background-color: #045faa;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+input[type=text],
+input[type=password] {
+    width: 20%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.imgcontainer {
+    text-align: center;
+    margin: 24px 0 12px 0;
+}
+
+img.avatar {
+    width: 40%;
+    height: 40%;
+    border-radius: 50%;
+}
+
+#avatar {
+    background-image: url('allstar1.jpg');
+
+    width: 250px;
+    height: 250px;
+
+    background-size: cover;
+
+    background-position: top center;
+
+    border-radius: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.containerbod {
+    padding: 16px;
+}
+
+button:hover {
+    opacity: 3;
+}
