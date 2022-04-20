@@ -62,7 +62,9 @@
 
     }
 
-
+    .currentTeam {
+        background-color: rgb(63, 20, 82);
+    }
 
     .gameStats {
         background-color: rgb(212, 41, 41);
@@ -133,6 +135,11 @@
                         Game Averages: {{pts[i]}} points, {{ast[i]}} assists, {{reb[i]}} rebounds ({{pie[i]}}
                         pie)
                     </div>
+                    <form method="POST" action="/home">
+
+                        <input type="submit" , value="delete from roster">
+                        <input type="hidden" name="btn_id" value={{playerId}}>
+                    </form>
 
                 </div>
             </li>
