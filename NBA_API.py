@@ -4,7 +4,6 @@ from nba_api.stats.endpoints import commonplayerinfo
 from nba_api.stats.static import players
 from nba_api.stats.endpoints import playergamelog
 import pandas as pd
-import numpy
 
 
 
@@ -24,13 +23,19 @@ def get_player_info(player_id):
     """Function to return HeadLine data for specific player id"""
     player_info = commonplayerinfo.CommonPlayerInfo(player_id=player_id)
     playerdict = player_info.player_headline_stats.get_dict()
+    height = player_info.common_player_info.get_dict()["data"][0][player_info.common_player_info.get_dict()["headers"].index("HEIGHT")]
+    weight = player_info.common_player_info.get_dict()["data"][0][player_info.common_player_info.get_dict()["headers"].index("WEIGHT")]
+    team = player_info.common_player_info.get_dict()["data"][0][player_info.common_player_info.get_dict()["headers"].index("TEAM_NAME")]
+    jersey = player_info.common_player_info.get_dict()["data"][0][player_info.common_player_info.get_dict()["headers"].index("JERSEY")]
+    position = player_info.common_player_info.get_dict()["data"][0][player_info.common_player_info.get_dict()["headers"].index("POSITION")]
     name = playerdict["data"][0][1]
     time_frame = playerdict["data"][0][2]
     pts = playerdict["data"][0][3]
     ast = playerdict["data"][0][4]
     reb = playerdict["data"][0][5]
     pie = playerdict["data"][0][6]
-    return (name ,time_frame ,pts ,ast ,reb, pie)
+    return (name ,time_frame ,pts ,ast ,reb, pie, height, weight, team, jersey, position)
+
 
 
 def get_player_games_between_dates(date_from, date_to, player_id):

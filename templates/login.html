@@ -13,33 +13,35 @@
 
 </head>
 <style>
-    body {margin:0;}
+    body {
+        margin: 0;
+    }
 
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  position: fixed;
-  top: 0;
-  width: 100%;
-}
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        position: fixed;
+        top: 0;
+        width: 100%;
+    }
 
-li {
-  float: left;
-}
+    li {
+        float: left;
+    }
 
-li a {
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 0px 14px;
-  text-decoration: none;
-}
+    li a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 0px 14px;
+        text-decoration: none;
+    }
 
-li a:hover:not(.active) {
-  background-color: #111;
-}
+    li a:hover:not(.active) {
+        background-color: #111;
+    }
 </style>
 
 <body>
@@ -47,7 +49,7 @@ li a:hover:not(.active) {
         <li><a href="{{ url_for('index') }}">Home</a></li>
         <li><a href="{{ url_for('login') }}">Login</a></li>
         <li><a href="{{ url_for('signup') }}">Sign Up</a></li>
-    
+
     </ul>
     <div class="bg"></div>
 
@@ -62,35 +64,35 @@ li a:hover:not(.active) {
         <body>
 
 
-           
-                 <div class='container'>
 
-           
+            <div class='container'>
 
 
 
-                    
 
-                    Log In
-                    <form method="POST" action="/login">
 
-                        <input type="text" placeholder="Email" name="email" />
-                        <input type="text" placeholder="Password" name="password" />
 
-                        <button type="submit">Sign In</button>
 
-                    </form>
+                Log In
+                <form method="POST" action="/login">
 
-                   
-                    {% with messages = get_flashed_messages() %}
-                    {% if messages %}
-                    {% for message in messages %}
-                    {{ message }}
-                    {% endfor %}
-                    {% endif %}
-                    {% endwith %}
+                    <input type="text" placeholder="Email" name="email" />
+                    <input type="password" placeholder="Password" name="password" />
 
-                </div>
+                    <button type="submit">Sign In</button>
+
+                </form>
+
+
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                {% for message in messages %}
+                {{ message }}
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+
+            </div>
 
 
 
