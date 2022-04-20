@@ -67,10 +67,93 @@ def index():
     return flask.render_template("entrance.html")
 
 
+@app.route("/search", methods=["GET","POST"])
+def search():
+    users = [current_user]
+    roster = current_user.roster.split(";")
+    len_roster = len(roster)
+    if len_roster == 1 and roster[0] == "":
+        len_roster -= 1
+    playerNames = [""] * len_roster
+    time_frame = [""] * len_roster
+    pts = [0] * len_roster
+    ast = [0] * len_roster
+    reb = [0] * len_roster
+    pie = [0] * len_roster
+    averagePPG = 0
+    if len_roster > 0:
+        for i in range (0,len_roster):
+            (
+                playerNames[i],
+                time_frame[i],
+                pts[i],
+                ast[i],
+                reb[i],
+                pie[i]
+            ) = get_player_info(roster[i])
+        averagePPG = 0
+        for game in pts:
+            averagePPG += game
+
+    if flask.request.method == "POST":
+        data = flask.request.form
+        playerName = data["playerSearch"]
+        playerID = get_player_id(playerName)
+        playerGamelog = get_player_games_between_dates(
+            "12/25/2020", "12/25/2021", playerID
+        )
+
+        try:
+            emptydf = playerGamelog.empty
+
+        except AttributeError:
+            return flask.redirect("/home")
+
+        if emptydf:
+            return flask.redirect("/home")
+
+        averagePoints = round(playerGamelog["PTS"].mean(), 2)
+        averageRebounds = round(playerGamelog["REB"].mean(), 2)
+        averageAssists = round(playerGamelog["AST"].mean(), 2)
+        len_results = 1
+        return flask.render_template(
+            "search.html",
+            len_results=len_results,
+            playerName=playerName,
+            averageAssists=averageAssists,
+            averagePoints=averagePoints,
+            averageRebounds=averageRebounds,
+            users=users,
+            playerId=playerID,
+            len_roster=len_roster,
+            playerNames=playerNames,
+            time_frame=time_frame,
+            pts=pts,
+            ast=ast,
+            reb=reb,
+            pie=pie,
+            avgPpg=round(averagePPG, 2),
+        )
+
+    return flask.render_template(
+        "search.html",
+        len_results=0,
+        users=users,
+        len_roster=len_roster,
+        playerNames=playerNames,
+        time_frame=time_frame,
+        pts=pts,
+        ast=ast,
+        reb=reb,
+        pie=pie,
+        avgPpg=round(averagePPG, 2),
+    )
+
+
 # Routing to homepage
 @app.route("/main", methods=["GET", "POST"])
 def main():
-    return flask.render_template("index.html")
+    return flask.redirect("/home")
 
 
 #Trying to have an app bar routing Below is my attempt
@@ -78,7 +161,7 @@ def main():
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if flask.request.method == "POST":
-
+        
         data = flask.request.form
         email = data["email"]
         password = data["password"]
@@ -92,7 +175,7 @@ def login():
         if user:
             if bcrypt.checkpw(password.encode("utf-8"), user.hash):
                 login_user(user)
-                return flask.render_template("index.html")
+                return flask.redirect("/home")
 
             flash(f"Incorrect Password for {email}")
             return flask.render_template("login.html")
@@ -153,6 +236,11 @@ def home():
     ast = [0] * len_roster
     reb = [0] * len_roster
     pie = [0] * len_roster
+    height = [0] * len_roster
+    weight = [0] * len_roster
+    team = [0] * len_roster
+    jersey = [0] * len_roster
+    position = [0] * len_roster
     averagePPG = 0
     if len_roster > 0:
         for i in range (0,len_roster):
@@ -163,54 +251,19 @@ def home():
                 ast[i],
                 reb[i],
                 pie[i],
+                height[i],
+                weight[i],
+                team[i],
+                jersey[i],
+                position[i]
+                
             ) = get_player_info(roster[i])
         averagePPG = 0
         for game in pts:
             averagePPG += game
 
-    if flask.request.method == "POST":
-        data = flask.request.form
-        playerName = data["playerSearch"]
-        playerID = get_player_id(playerName)
-        playerGamelog = get_player_games_between_dates(
-            "12/25/2020", "12/25/2021", playerID
-        )
-
-        try:
-            emptydf = playerGamelog.empty
-
-        except AttributeError:
-            return flask.redirect("/home")
-
-        if emptydf:
-            return flask.redirect("/home")
-
-        averagePoints = round(playerGamelog["PTS"].mean(), 2)
-        averageRebounds = round(playerGamelog["REB"].mean(), 2)
-        averageAssists = round(playerGamelog["AST"].mean(), 2)
-        len_results = 1
-        return flask.render_template(
-            "search.html",
-            len_results=len_results,
-            playerName=playerName,
-            averageAssists=averageAssists,
-            averagePoints=averagePoints,
-            averageRebounds=averageRebounds,
-            users=users,
-            playerId=playerID,
-            len_roster=len_roster,
-            playerNames=playerNames,
-            time_frame=time_frame,
-            pts=pts,
-            ast=ast,
-            reb=reb,
-            pie=pie,
-            avgPpg=round(averagePPG, 2),
-        )
-
     return flask.render_template(
-        "search.html",
-        len_results=0,
+        "index.html",
         users=users,
         len_roster=len_roster,
         playerNames=playerNames,
@@ -219,7 +272,12 @@ def home():
         ast=ast,
         reb=reb,
         pie=pie,
-        avgPpg=round(averagePPG, 2),
+        height = height,
+        weight = weight,
+        team = team,
+        jersey = jersey,
+        position = position,
+        avgPpg=round(averagePPG, 2)
     )
 
 #  Adding Players to ROster
