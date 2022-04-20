@@ -102,6 +102,7 @@ def login():
 
     return flask.render_template("login.html")
 
+
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
     if flask.request.method == "POST":
