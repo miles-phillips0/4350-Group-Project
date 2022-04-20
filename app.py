@@ -80,13 +80,69 @@ def index():
             newUser = Users(email=email, hash=hashed, roster="")
             db.session.add(newUser)
             db.session.commit()
-            flash("User Registered!")
+            flash("User Registered")
 
             return flask.render_template("login.html")
         flash(f"{email} is already registered")
 
     return flask.render_template("login.html")
 
+#Trying to have an app bar routing Below is my attempt
+#_----------------------------------------------------------
+@app.route("/login2", methods=["GET", "POST"])
+def login2():
+    if flask.request.method == "POST":
+
+        data = flask.request.form
+        email = data["email"]
+        password = data["password"]
+        if email == "":
+            flash("Email Not Entered")
+            return flask.render_template("login2.html")
+        if password == "":
+            flash("Password Not Entered")
+            return flask.render_template("login2.html")
+        user = Users.query.filter_by(email=email).first()
+        if user:
+            if bcrypt.checkpw(password.encode("utf-8"), user.hash):
+                login_user(user)
+                return flask.redirect("/home")
+
+            flash(f"Incorrect Password for {email}")
+            return flask.render_template("login2.html")
+
+        else:
+            flash("User not found")
+
+    return flask.render_template("login2.html")
+
+@app.route("/signup2", methods=["GET", "POST"])
+def signup2():
+    if flask.request.method == "POST":
+        data = flask.request.form
+        email = data["r_email"]
+        password = data["r_password"]
+        if email == "":
+            flash("Email Not Entered")
+            return flask.render_template("signup2.html")
+        if password == "":
+            flash("Password Not Entered")
+            return flask.render_template("signup2.html")
+
+        if not Users.query.filter_by(email=email).first():
+            hashed = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt())
+            newUser = Users(email=email, hash=hashed, roster="")
+            db.session.add(newUser)
+            db.session.commit()
+            flash("User Registered")
+
+            return flask.render_template("login2.html")
+        flash(f"{email} is already registered")
+
+    return flask.render_template("signup2.html")
+
+
+#-----------------------------------------------------------
 
 @app.route("/add", methods=["GET", "POST"])
 @login_required
@@ -122,7 +178,7 @@ def home():
     reb = [0] * len_roster
     pie = [0] * len_roster
     if len_roster > 0:
-        for i in range(0, len_roster):
+        for i in range (0,len_roster):
             (
                 playerNames[i],
                 time_frame[i],
