@@ -4,12 +4,8 @@
     <link rel="stylesheet" href="static/style.css" />
     <style>
         body {
-            /* background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-CvRj7tT4PdciZIcH9AresTUr9q6upLodAUNvqR426fTtBmdNY6nZumfWduEp6wS0dlY&usqp=CAU"); */
             background-repeat: no-repeat;
             height: 100%;
-
-            /* background: url("https://wallpaperaccess.com/full/1305339.jpg")  center fixed;  */
-            /* background: url("https://wallpaperaccess.com/full/1305370.jpg")  center fixed;  */
 
         }
     </style>
@@ -46,13 +42,11 @@ li a:hover:not(.active) {
 }
 </style>
 
-<!-- <Body background="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-CvRj7tT4PdciZIcH9AresTUr9q6upLodAUNvqR426fTtBmdNY6nZumfWduEp6wS0dlY&usqp=CAU">  -->
-
 <body>
     <ul>
         <li><a href="{{ url_for('index') }}">Home</a></li>
-        <li><a href="{{ url_for('login2') }}">Login</a></li>
-        <li><a href="{{ url_for('signup2') }}">Sign Up</a></li>
+        <li><a href="{{ url_for('login') }}">Login</a></li>
+        <li><a href="{{ url_for('signup') }}">Sign Up</a></li>
     
     </ul>
     <div class="bg"></div>
@@ -68,21 +62,17 @@ li a:hover:not(.active) {
         <body>
 
 
-            <h6 style="font-family:Papyrus">Join and track all your favorite ballers!</h6>
-                <img src="/static/ball.gif" alt="NBA Logo" width="400" height="350">
-                <!-- <div class='container'>
+           
+                 <div class='container'>
 
            
 
 
 
-                    <div id="avatar">
+                    
 
-                    </div>
-
-
-                    <label for="email"><b>Log In</b></label>
-                    <form method="POST" action="/signin">
+                    Log In
+                    <form method="POST" action="/login">
 
                         <input type="text" placeholder="Email" name="email" />
                         <input type="text" placeholder="Password" name="password" />
@@ -91,14 +81,7 @@ li a:hover:not(.active) {
 
                     </form>
 
-                    Register
-                    <form method="POST" action="/">
-
-                        <input type="text" placeholder="Email" name="r_email" />
-                        <input type="text" placeholder="Password" name="r_password" />
-                        <button type="submit">Register</button>
-
-                    </form>
+                   
                     {% with messages = get_flashed_messages() %}
                     {% if messages %}
                     {% for message in messages %}
@@ -107,7 +90,7 @@ li a:hover:not(.active) {
                     {% endif %}
                     {% endwith %}
 
-                </div> -->
+                </div>
 
 
 
