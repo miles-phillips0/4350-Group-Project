@@ -1,64 +1,46 @@
-<!DOCTYPE html>
 <html>
-
-<head>
-    <link rel="stylesheet" href="static/style.css" />
-
-
-
-</head>
-<style>
-    body {margin:0;}
-
-    ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  position: fixed;
-  top: 0;
-  width: 100%;
-}
-
-li {
-  float: left;
-}
-
-li a {
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 0px 14px;
-  text-decoration: none;
-}
-
-li a:hover:not(.active) {
-  background-color: #111;
-}
-</style>
-
-<body>
-    <ul>
-        <li><a href="{{ url_for('main') }}">Home</a></li>
-        <li><a href="{{ url_for('home') }}">Search</a></li>
-        <li><a href="{{ url_for('logout') }}">Logout</a></li>
-
+    <head>
+        <link rel="stylesheet" href="static/style.css" />
+    </head>
+    <style>
+        body {margin:0;}
     
-    </ul>
+        ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      position: fixed;
+      top: 0;
+      width: 100%;
+    }
     
-
-    <div class="userName">
-        {% for user in users %}
-        <div>
-            <h3>{{user.email}}'s profile</h3>
-        </div>
-        {% endfor %}
-    </div>
+    li {
+      float: left;
+    }
     
-    <img src="/static/logo.png" alt="NBA Logo" width="450" height="250">
+    li a {
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 0px 14px;
+      text-decoration: none;
+    }
+    
+    li a:hover:not(.active) {
+      background-color: #111;
+    }
+    </style>
 
-<<<<<<< HEAD
-    <h2>Ball Watchers</h2>
+    <body>
+        <ul>
+            <li><a href="{{ url_for('main') }}">Home</a></li>
+            <li><a href="{{ url_for('home') }}">Search</a></li>
+            <li><a href="{{ url_for('logout') }}">Logout</a></li>
+        </ul>
+
+
+        <h2>Ball Watchers</h2>
     <form method="POST" action="/home">
         <input type="text" name="playerSearch" placeholder="Search your favorite Player">
         <input type="submit" value="Submit">
@@ -94,17 +76,9 @@ li a:hover:not(.active) {
             {{playerNames[i]}}: {{pts[i]}} pts, {{ast[i]}} ast, {{reb[i]}} reb, {{pie[i]}} pie ({{time_frame[i]}})
         </li>
         {% endfor %}
-
     </div>
-=======
-   
->>>>>>> 5e53b016da39bfeb2e91dbef46e7897a596150f2
 
-
-</body>
-
-
-
+    </body>
 
 
 </html>
