@@ -64,26 +64,7 @@ def load_user(user_id):
 
 @app.route("/", methods=["GET", "POST"])
 def index():
-    if flask.request.method == "POST":
-        data = flask.request.form
-        email = data["r_email"]
-        password = data["r_password"]
-        if email == "":
-            flash("Email Not Entered")
-            return flask.render_template("login.html")
-        if password == "":
-            flash("Password Not Entered")
-            return flask.render_template("login.html")
-
-        if not Users.query.filter_by(email=email).first():
-            hashed = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt())
-            newUser = Users(email=email, hash=hashed, roster="")
-            db.session.add(newUser)
-            db.session.commit()
-            flash("User Registered")
-
-            return flask.render_template("login.html")
-        flash(f"{email} is already registered")
+    
 
     return flask.render_template("login.html")
 
@@ -92,7 +73,7 @@ def index():
 @app.route("/login2", methods=["GET", "POST"])
 def login2():
     if flask.request.method == "POST":
-
+        
         data = flask.request.form
         email = data["email"]
         password = data["password"]
@@ -186,7 +167,7 @@ def home():
                 pts[i],
                 ast[i],
                 reb[i],
-                pie[i],
+                pie[i]
             ) = get_player_info(roster[i])
         averagePPG = 0
         for game in pts:
