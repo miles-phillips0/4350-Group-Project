@@ -23,6 +23,19 @@ def get_player_info(player_id):
     """Function to return HeadLine data for specific player id"""
     player_info = commonplayerinfo.CommonPlayerInfo(player_id=player_id)
     playerdict = player_info.player_headline_stats.get_dict()
+    
+    name = playerdict["data"][0][1]
+    time_frame = playerdict["data"][0][2]
+    pts = playerdict["data"][0][3]
+    ast = playerdict["data"][0][4]
+    reb = playerdict["data"][0][5]
+    pie = playerdict["data"][0][6]
+    return (name ,time_frame ,pts ,ast ,reb, pie)
+
+def get_advanced_player_info(player_id):
+    """Function to return HeadLine data for specific player id"""
+    player_info = commonplayerinfo.CommonPlayerInfo(player_id=player_id)
+    playerdict = player_info.player_headline_stats.get_dict()
     height = player_info.common_player_info.get_dict()["data"][0][player_info.common_player_info.get_dict()["headers"].index("HEIGHT")]
     weight = player_info.common_player_info.get_dict()["data"][0][player_info.common_player_info.get_dict()["headers"].index("WEIGHT")]
     team = player_info.common_player_info.get_dict()["data"][0][player_info.common_player_info.get_dict()["headers"].index("TEAM_NAME")]
