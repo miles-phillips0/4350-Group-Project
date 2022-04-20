@@ -81,15 +81,20 @@
         {% if len_roster == 0 %}
         <h4>Search to Add Players to Your Roster!</h4>
         {% else %}
-        <h1>{{users[0].email}}'s Roster:</h1>
+        <!--<h1>{{users[0].email}}'s Roster:</h1>-->
         {% endif %}
         {% for i in range(0,len_roster) %}
         <li>
-            <div class="playerName">{{playerNames[i]}}</div> {{pts[i]}} pts, {{ast[i]}} ast, {{reb[i]}} reb, {{pie[i]}}
-            pie
-            ({{time_frame[i]}}),
-            height= {{height[i]}}, weight = {{weight[i]}}, team = {{team[i]}}, jersey={{jersey[i]}}, position =
-            {{position[i]}}
+            <div class="playerContainer">
+                <div class="playerName">{{playerNames[i]}}</div><br>
+                <div class="stats">{{time_frame[i]}}<br>
+                    {{pts[i]}} pts, {{ast[i]}} ast, {{reb[i]}} reb, {{pie[i]}} pie<br>
+
+                    height = {{height[i]}}, weight = {{weight[i]}} lbs <br>
+                    team = {{team[i]}}, jersey # = {{jersey[i]}}, position =
+                    {{position[i]}}
+                </div>
+            </div>
         </li>
         {% endfor %}
     </div>

@@ -63,73 +63,39 @@
 
         <body>
 
-<<<<<<< HEAD
-            <div id="avatar"></div>
-=======
->>>>>>> 6c5a29abcbb68dd40689e6ae90893e1dfcdbab76
 
             <!--<h3 style="font-family:Papyrus">Join and track all your favorite ballers!</h1>-->
             <!--<img src="/static/ball.gif" alt="NBA Logo" width="325" height="275">-->
             <div class='containerbod'>
 
-<<<<<<< HEAD
-=======
-            <div class='container'>
-
-
-
->>>>>>> 6c5a29abcbb68dd40689e6ae90893e1dfcdbab76
+                <div class='container'>
 
 
 
 
-<<<<<<< HEAD
-                <label for="email"><b>Log In</b></label>
-                <form method="POST" action="/signin">
 
-                    <input type="text" placeholder="Email" name="email" />
-                    <input type="text" placeholder="Password" name="password" />
-=======
-                Log In
-                <form method="POST" action="/login">
 
-                    <input type="text" placeholder="Email" name="email" />
-                    <input type="password" placeholder="Password" name="password" />
->>>>>>> 6c5a29abcbb68dd40689e6ae90893e1dfcdbab76
 
-                    <button type="submit">Sign In</button>
+                    Log In
+                    <form method="POST" action="/login">
 
-                </form>
+                        <input type="text" placeholder="Email" name="email" />
+                        <input type="password" placeholder="Password" name="password" />
 
-<<<<<<< HEAD
-                Register
-                <form method="POST" action="/">
+                        <button type="submit">Sign In</button>
 
-                    <input type="text" placeholder="Email" name="r_email" />
-                    <input type="text" placeholder="Password" name="r_password" />
-                    <button type="submit">Register</button>
+                    </form>
 
-                </form>
-                {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                {% for message in messages %}
-                {{ message }}
-                {% endfor %}
-                {% endif %}
-                {% endwith %}
 
-=======
+                    {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                    {% for message in messages %}
+                    {{ message }}
+                    {% endfor %}
+                    {% endif %}
+                    {% endwith %}
 
-                {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                {% for message in messages %}
-                {{ message }}
-                {% endfor %}
-                {% endif %}
-                {% endwith %}
-
->>>>>>> 6c5a29abcbb68dd40689e6ae90893e1dfcdbab76
-            </div>
+                </div>
 
 
 

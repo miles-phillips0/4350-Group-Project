@@ -85,3 +85,16 @@ img.avatar {
 button:hover {
     opacity: 3;
 }
+
+.stats {
+    text-align: left;
+
+}
+
+.playerContainer {
+    padding: 40px;
+}
+
+.playerName {
+    padding: 30px;
+}
