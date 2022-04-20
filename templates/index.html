@@ -9,15 +9,15 @@
 </head>
 
 <body>
+    
     <div class="userName">
-        {% for user in users %}
         <div>
-            <h3>{{user.email}}'s profile</h3>
+            <h3>{{users[0].email}}'s profile</h3>
         </div>
-        {% endfor %}
     </div>
     <div id=logout class="logout">
         <a href="{{url_for('logout')}}">Log Out</a>
+        <a href="{{url_for('players')}}">Players</a>
     </div>
     <img src="/static/logo.png" alt="NBA Logo" width="450" height="250">
 

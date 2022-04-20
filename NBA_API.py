@@ -4,6 +4,18 @@ from nba_api.stats.endpoints import commonplayerinfo
 from nba_api.stats.static import players
 from nba_api.stats.endpoints import playergamelog
 import pandas as pd
+import requests
+
+url = "https://api-nba-v1.p.rapidapi.com/seasons"
+
+headers = {
+    "X-RapidAPI-Host": "api-nba-v1.p.rapidapi.com",
+    "X-RapidAPI-Key": "8593bed36fmsh6b21867ba84ee1cp1268eejsn84e367ed44a1",
+}
+
+response = requests.request("GET", url, headers=headers)
+
+print(response.text)
 
 
 def get_player_id(name):
