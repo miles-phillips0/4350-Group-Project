@@ -8,33 +8,35 @@
 
 </head>
 <style>
-    body {margin:0;}
+    body {
+        margin: 0;
+    }
 
     ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  position: fixed;
-  top: 0;
-  width: 100%;
-}
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        position: fixed;
+        top: 0;
+        width: 100%;
+    }
 
-li {
-  float: left;
-}
+    li {
+        float: left;
+    }
 
-li a {
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 0px 14px;
-  text-decoration: none;
-}
+    li a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 0px 14px;
+        text-decoration: none;
+    }
 
-li a:hover:not(.active) {
-  background-color: #111;
-}
+    li a:hover:not(.active) {
+        background-color: #111;
+    }
 </style>
 
 <body>
@@ -43,9 +45,9 @@ li a:hover:not(.active) {
         <li><a href="{{ url_for('home') }}">Search</a></li>
         <li><a href="{{ url_for('logout') }}">Logout</a></li>
 
-    
+
     </ul>
-    
+
 
     <div class="userName">
         {% for user in users %}
@@ -54,51 +56,10 @@ li a:hover:not(.active) {
         </div>
         {% endfor %}
     </div>
-    
+
     <img src="/static/logo.png" alt="NBA Logo" width="450" height="250">
 
-<<<<<<< HEAD
-    <h2>Ball Watchers</h2>
-    <form method="POST" action="/home">
-        <input type="text" name="playerSearch" placeholder="Search your favorite Player">
-        <input type="submit" value="Submit">
-    </form>
 
-
-    <div class="results">
-        <o2>
-            {%for i in range(0,len_results)%}
-            <li>
-                {{playerName}} averages for 2021 : {{averagePoints}} PTS, {{averageAssists}} AST, {{averageRebounds}}
-                REB
-                <form method="POST" action="/add">
-
-                    <input type="submit" , value="add">
-                    <input type="hidden" name="btn_id" value={{playerId}}>
-                </form>
-            </li>
-            {%endfor%}
-        </o2>
-
-    </div>
-
-    <div class="roster">
-
-        {% if len_roster == 0 %}
-        <h4>Search to Add Players to Your Roster!</h4>
-        {% else %}
-        <!--<h1>{{users[0].email}}'s Roster:</h1>-->
-        {% endif %}
-        {% for i in range(0,len_roster) %}
-        <li>
-            {{playerNames[i]}}: {{pts[i]}} pts, {{ast[i]}} ast, {{reb[i]}} reb, {{pie[i]}} pie ({{time_frame[i]}})
-        </li>
-        {% endfor %}
-
-    </div>
-=======
-   
->>>>>>> 5e53b016da39bfeb2e91dbef46e7897a596150f2
 
 
 </body>
