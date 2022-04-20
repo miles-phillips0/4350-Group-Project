@@ -254,12 +254,18 @@ def home():
                 weight[i],
                 team[i],
                 jersey[i],
-                position[i]
+                position[i],
+
                 
             ) = get_advanced_player_info(roster[i])
         averagePPG = 0
         for game in pts:
             averagePPG += game
+    
+
+
+
+
 
     return flask.render_template(
         "index.html",
@@ -276,8 +282,33 @@ def home():
         team = team,
         jersey = jersey,
         position = position,
-        avgPpg=round(averagePPG, 2)
+        avgPpg=round(averagePPG, 2),
+        roster = roster
     )
+
+@app.route("/delete", methods=["GET", "POST"])
+@login_required
+def deletePlayer():
+    users = [current_user]
+    if flask.request.method == "POST":
+        data = flask.request.form
+        deletedPlayer = data["player"]
+        roster = current_user.roster.split(";")
+        if deletedPlayer in roster:
+            roster.remove(deletedPlayer)
+        newRoster = ""
+        for player in roster:
+            if len(newRoster) == 0:
+                newRoster += player
+            else:
+                newRoster += f";{player}"
+        
+        current_user.roster = newRoster
+        db.session.commit()
+        
+
+    return flask.redirect("/home")
+
 
 #  Adding Players to Roster
 @app.route("/add", methods=["GET", "POST"])

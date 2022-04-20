@@ -8,67 +8,7 @@
 
 </head>
 <style>
-    body {
-        margin: 0;
-    }
 
-    ul h2 {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-        position: fixed;
-        top: 0;
-        width: 100%;
-    }
-
-
-
-    li a {
-        display: block;
-        color: white;
-        text-align: center;
-        padding: 0px 14px;
-        text-decoration: none;
-        float: left;
-    }
-
-    li a:hover:not(.active) {
-        background-color: #111;
-    }
-
-    .roster {
-        list-style: none inside;
-        float: left;
-        margin: 10px 0;
-    }
-
-
-
-    .playerName {
-        border: 5px solid rgb(42, 42, 202);
-        width: 200px;
-        background-color: rgb(157, 40, 40);
-    }
-
-    .playerInfo {
-        border: 5px solid rgb(0, 0, 0);
-        background-color: rgb(102, 64, 64);
-        float: center;
-    }
-
-    .heightWeight {
-        background-color: rgb(36, 43, 163);
-
-    }
-
-    .currentTeam {
-        background-color: rgb(63, 20, 82);
-    }
-
-    .gameStats {
-        background-color: rgb(212, 41, 41);
-    }
 </style>
 
 <body>
@@ -121,10 +61,11 @@
                         Game Averages: {{pts[i]}} points, {{ast[i]}} assists, {{reb[i]}} rebounds ({{pie[i]}}
                         pie)
                     </div>
-                    <form method="POST" action="/home">
+                    <form method="POST" action="/delete">
 
                         <input type="submit" , value="delete from roster">
-                        <input type="hidden" name="btn_id" value={{playerId}}>
+                        <input type="hidden" name="player" value={{roster[i]}}>
+
                     </form>
 
                 </div>
