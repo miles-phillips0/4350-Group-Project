@@ -7,54 +7,76 @@
 
 
 </head>
+<style>
+    body {
+        margin: 0;
+    }
+
+    ul h2 {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        position: fixed;
+        top: 0;
+        width: 100%;
+    }
+
+
+
+    li a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 0px 14px;
+        text-decoration: none;
+        float: left;
+    }
+
+    li a:hover:not(.active) {
+        background-color: #111;
+    }
+</style>
 
 <body>
+    <ul>
+        <h2>
+            <li><a href="{{ url_for('home') }}">Home</a></li>
+            <li><a href="{{ url_for('search') }}">Search</a></li>
+            <li><a href="{{ url_for('logout') }}">Logout</a></li>
+        </h2>
+
+    </ul>
+
+
     <div class="userName">
         {% for user in users %}
         <div>
-            <h3>{{user.email}}'s profile</h3>
+            <h3>{{user.email}}</h3>
         </div>
         {% endfor %}
     </div>
-    <div id=logout class="logout">
-        <a href="{{url_for('logout')}}">Log Out</a>
-    </div>
+
     <img src="/static/logo.png" alt="NBA Logo" width="450" height="250">
 
-    <h2>Ball Watchers</h2>
-    <form method="POST" action="/home">
-        <input type="text" name="playerSearch" placeholder="Search your favorite Player">
-        <input type="submit" value="Submit">
-    </form>
 
 
-    <div class="results">
-        <o2>
-            {%for i in range(0,len_results)%}
-            <li>
-                {{playerName}} averages for 2021 : {{averagePoints}} PTS, {{averageAssists}} AST, {{averageRebounds}}
-                REB
-                <form method="POST" action="/add">
 
-                    <input type="submit" , value="add">
-                    <input type="hidden" name="btn_id" value={{playerId}}>
-                </form>
-            </li>
-            {%endfor%}
-        </o2>
 
-    </div>
+
 
     <div class="roster">
 
         {% if len_roster == 0 %}
         <h4>Search to Add Players to Your Roster!</h4>
         {% else %}
-        <!--<h1>{{users[0].email}}'s Roster:</h1>-->
+        <h1>{{users[0].email}}'s Roster:</h1>
         {% endif %}
         {% for i in range(0,len_roster) %}
         <li>
-            {{playerNames[i]}}: {{pts[i]}} pts, {{ast[i]}} ast, {{reb[i]}} reb, {{pie[i]}} pie ({{time_frame[i]}})
+            {{playerNames[i]}}: {{pts[i]}} pts, {{ast[i]}} ast, {{reb[i]}} reb, {{pie[i]}} pie ({{time_frame[i]}}),
+            height= {{height[i]}}, weight = {{weight[i]}}, team = {{team[i]}}, jersey={{jersey[i]}}, position =
+            {{position[i]}}
         </li>
         {% endfor %}
     </div>
