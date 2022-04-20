@@ -1,47 +1,53 @@
 <html>
-    <head>
-        <link rel="stylesheet" href="static/style.css" />
-    </head>
-    <style>
-        body {margin:0;}
-    
-        ul {
-      list-style-type: none;
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-      position: fixed;
-      top: 0;
-      width: 100%;
+
+<head>
+    <link rel="stylesheet" href="static/style.css" />
+</head>
+<style>
+    body {
+        margin: 0;
     }
-    
-    li {
-      float: left;
+
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        position: fixed;
+        top: 0;
+        width: 100%;
     }
-    
+
+
+
     li a {
-      display: block;
-      color: white;
-      text-align: center;
-      padding: 0px 14px;
-      text-decoration: none;
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 0px 14px;
+        text-decoration: none;
+        float: left;
     }
-    
+
     li a:hover:not(.active) {
-      background-color: #111;
+        background-color: #111;
     }
-    </style>
 
-    <body>
-        <ul>
-            <li><a href="{{ url_for('main') }}">Home</a></li>
-            <li><a href="{{ url_for('home') }}">Search</a></li>
-            <li><a href="{{ url_for('logout') }}">Logout</a></li>
-        </ul>
+    .results {
+        text-align: center;
+    }
+</style>
+
+<body>
+    <ul>
+        <li><a href="{{ url_for('home') }}">Home</a></li>
+        <li><a href="{{ url_for('search') }}">Search</a></li>
+        <li><a href="{{ url_for('logout') }}">Logout</a></li>
+    </ul>
 
 
-        <h2>Ball Watchers</h2>
-    <form method="POST" action="/home">
+    <h2>Ball Watchers</h2>
+    <form method="POST" action="/search">
         <input type="text" name="playerSearch" placeholder="Search your favorite Player">
         <input type="submit" value="Submit">
     </form>
@@ -64,21 +70,9 @@
 
     </div>
 
-    <div class="roster">
 
-        {% if len_roster == 0 %}
-        <h4>Search to Add Players to Your Roster!</h4>
-        {% else %}
-        <!--<h1>{{users[0].email}}'s Roster:</h1>-->
-        {% endif %}
-        {% for i in range(0,len_roster) %}
-        <li>
-            {{playerNames[i]}}: {{pts[i]}} pts, {{ast[i]}} ast, {{reb[i]}} reb, {{pie[i]}} pie ({{time_frame[i]}})
-        </li>
-        {% endfor %}
-    </div>
 
-    </body>
+</body>
 
 
 </html>
