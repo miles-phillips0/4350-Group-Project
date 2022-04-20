@@ -30,7 +30,7 @@ def get_player_info(player_id):
     ast = playerdict["data"][0][4]
     reb = playerdict["data"][0][5]
     pie = playerdict["data"][0][6]
-    return (name, time_frame, pts, ast, reb, pie)
+    return ("Name:",name, "Time Frame:",time_frame, "Points:",pts, "Assists:",ast, "Rebounds:",reb, pie)
 
 
 def get_player_games_between_dates(date_from, date_to, player_id):
