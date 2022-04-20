@@ -119,6 +119,7 @@ def home():
     ast = [0] * len_roster
     reb = [0] * len_roster
     pie = [0] * len_roster
+    averagePPG = 0
     if len_roster > 0:
         for i in range(0, len_roster):
             (
@@ -129,6 +130,10 @@ def home():
                 reb[i],
                 pie[i],
             ) = get_player_info(roster[i])
+        averagePPG = 0
+        for game in pts:
+            averagePPG += game
+
     if flask.request.method == "POST":
         data = flask.request.form
         playerName = data["playerSearch"]
@@ -166,6 +171,7 @@ def home():
             ast=ast,
             reb=reb,
             pie=pie,
+            avgPpg=round(averagePPG, 2),
         )
 
     return flask.render_template(
@@ -179,6 +185,7 @@ def home():
         ast=ast,
         reb=reb,
         pie=pie,
+        avgPpg=round(averagePPG, 2),
     )
 
 

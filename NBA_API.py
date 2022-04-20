@@ -4,6 +4,8 @@ from nba_api.stats.endpoints import commonplayerinfo
 from nba_api.stats.static import players
 from nba_api.stats.endpoints import playergamelog
 import pandas as pd
+import numpy
+
 
 
 def get_player_id(name):
