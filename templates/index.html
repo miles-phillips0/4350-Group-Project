@@ -40,12 +40,32 @@
     .roster {
         list-style: none inside;
         float: left;
+        margin: 10px 0;
     }
 
+
+
     .playerName {
-        border: 5px solid blue;
-        width: 140px;
+        border: 5px solid rgb(42, 42, 202);
+        width: 200px;
         background-color: rgb(157, 40, 40);
+    }
+
+    .playerInfo {
+        border: 5px solid rgb(0, 0, 0);
+        background-color: rgb(102, 64, 64);
+        float: center;
+    }
+
+    .heightWeight {
+        background-color: rgb(36, 43, 163);
+
+    }
+
+
+
+    .gameStats {
+        background-color: rgb(212, 41, 41);
     }
 </style>
 
@@ -84,6 +104,7 @@
         <!--<h1>{{users[0].email}}'s Roster:</h1>-->
         {% endif %}
         {% for i in range(0,len_roster) %}
+<<<<<<< HEAD
         <li>
             <div class="playerContainer">
                 <div class="playerName">{{playerNames[i]}}</div><br>
@@ -96,6 +117,27 @@
                 </div>
             </div>
         </li>
+=======
+        <div class="player">
+            <li>
+                <div class="playerName">{{playerNames[i]}} {{time_frame[i]}}</div>
+                <div class="playerInfo">
+                    <div class="heightWeight">
+                        Build: {{height[i]}}(feet-inches) {{weight[i]}}lbs
+                    </div>
+                    <div class="currentTeam">
+                        {{team[i]}} #{{jersey[i]}},
+                        {{position[i]}}
+                    </div>
+                    <div class="gameStats">
+                        Game Averages: {{pts[i]}} points, {{ast[i]}} assists, {{reb[i]}} rebounds ({{pie[i]}}
+                        pie)
+                    </div>
+
+                </div>
+            </li>
+        </div>
+>>>>>>> 80cb9e873c98480b3f643246abbbc16f68126ce4
         {% endfor %}
     </div>
 
