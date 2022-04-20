@@ -3,6 +3,9 @@ import unittest
 from unittest.mock import patch
 from NBA_API import get_player_id, get_player_games_between_dates
 
+class APITest(unittest.TestCase):
+    def api_call(self):
+        self.assertTrue()
 
 def lebron(name):
     # pylint: disable=unused-argument
