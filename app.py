@@ -6,8 +6,7 @@ from flask_login import (
     UserMixin,
     login_required,
     logout_user,
-    current_user,
-)
+    current_user,)
 from flask import Flask, flash, redirect, render_template, url_for
 from flask_sqlalchemy import SQLAlchemy
 import flask
@@ -47,7 +46,6 @@ class Users(UserMixin, db.Model):
     @property
     def getRoster(self):
         return [int(x) for x in self.roster.split(";")]
-
 
 # db.create_all()
 
@@ -149,7 +147,6 @@ def search():
         avgPpg=round(averagePPG, 2),
     )
 
-
 # Routing to homepage
 @app.route("/main", methods=["GET", "POST"])
 def main():
@@ -211,7 +208,6 @@ def signup():
 
     return flask.render_template("signup.html")
 
-
 #-----------------------------------------------------------
 
 @app.route("/logout")
@@ -219,7 +215,6 @@ def logout():
     logout_user()
     flash("You were logged out.")
     return redirect(url_for("login"))
-
 
 
 @app.route("/home", methods=["GET", "POST"])
