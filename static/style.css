@@ -82,10 +82,6 @@ img.avatar {
     margin-right: auto;
 }
 
-.containerbod {
-    padding: 16px;
-}
-
 button:hover {
     opacity: 3;
 }

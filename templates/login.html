@@ -32,43 +32,43 @@
 
         <body>
 
-            <h3 style="font-family:Papyrus">Join and track all your favorite ballers!</h1>
-                <!--<img src="/static/ball.gif" alt="NBA Logo" width="325" height="275">-->
-                <div class='containerbod'>
+            <div id="avatar"></div>
+
+            <!--<h3 style="font-family:Papyrus">Join and track all your favorite ballers!</h1>-->
+            <!--<img src="/static/ball.gif" alt="NBA Logo" width="325" height="275">-->
+            <div class='containerbod'>
 
 
-                    <div id="avatar">
-
-                    </div>
 
 
-                    <label for="email"><b>Log In</b></label>
-                    <form method="POST" action="/signin">
 
-                        <input type="text" placeholder="Email" name="email" />
-                        <input type="text" placeholder="Password" name="password" />
+                <label for="email"><b>Log In</b></label>
+                <form method="POST" action="/signin">
 
-                        <button type="submit">Sign In</button>
+                    <input type="text" placeholder="Email" name="email" />
+                    <input type="text" placeholder="Password" name="password" />
 
-                    </form>
+                    <button type="submit">Sign In</button>
 
-                    Register
-                    <form method="POST" action="/">
+                </form>
 
-                        <input type="text" placeholder="Email" name="r_email" />
-                        <input type="text" placeholder="Password" name="r_password" />
-                        <button type="submit">Register</button>
+                Register
+                <form method="POST" action="/">
 
-                    </form>
-                    {% with messages = get_flashed_messages() %}
-                    {% if messages %}
-                    {% for message in messages %}
-                    {{ message }}
-                    {% endfor %}
-                    {% endif %}
-                    {% endwith %}
+                    <input type="text" placeholder="Email" name="r_email" />
+                    <input type="text" placeholder="Password" name="r_password" />
+                    <button type="submit">Register</button>
 
-                </div>
+                </form>
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                {% for message in messages %}
+                {{ message }}
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+
+            </div>
 
 
 
