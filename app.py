@@ -64,33 +64,19 @@ def load_user(user_id):
 
 @app.route("/", methods=["GET", "POST"])
 def index():
-    if flask.request.method == "POST":
-        data = flask.request.form
-        email = data["r_email"]
-        password = data["r_password"]
-        if email == "":
-            flash("Email Not Entered")
-            return flask.render_template("login.html")
-        if password == "":
-            flash("Password Not Entered")
-            return flask.render_template("login.html")
+    return flask.render_template("entrance.html")
 
-        if not Users.query.filter_by(email=email).first():
-            hashed = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt())
-            newUser = Users(email=email, hash=hashed, roster="")
-            db.session.add(newUser)
-            db.session.commit()
-            flash("User Registered")
 
-            return flask.render_template("login.html")
-        flash(f"{email} is already registered")
+# Routing to homepage
+@app.route("/main", methods=["GET", "POST"])
+def main():
+    return flask.render_template("index.html")
 
-    return flask.render_template("login.html")
 
 #Trying to have an app bar routing Below is my attempt
 #_----------------------------------------------------------
-@app.route("/login2", methods=["GET", "POST"])
-def login2():
+@app.route("/login", methods=["GET", "POST"])
+def login():
     if flask.request.method == "POST":
 
         data = flask.request.form
@@ -98,36 +84,36 @@ def login2():
         password = data["password"]
         if email == "":
             flash("Email Not Entered")
-            return flask.render_template("login2.html")
+            return flask.render_template("login.html")
         if password == "":
             flash("Password Not Entered")
-            return flask.render_template("login2.html")
+            return flask.render_template("login.html")
         user = Users.query.filter_by(email=email).first()
         if user:
             if bcrypt.checkpw(password.encode("utf-8"), user.hash):
                 login_user(user)
-                return flask.redirect("/home")
+                return flask.render_template("index.html")
 
             flash(f"Incorrect Password for {email}")
-            return flask.render_template("login2.html")
+            return flask.render_template("login.html")
 
         else:
             flash("User not found")
 
-    return flask.render_template("login2.html")
+    return flask.render_template("login.html")
 
-@app.route("/signup2", methods=["GET", "POST"])
-def signup2():
+@app.route("/signup", methods=["GET", "POST"])
+def signup():
     if flask.request.method == "POST":
         data = flask.request.form
         email = data["r_email"]
         password = data["r_password"]
         if email == "":
             flash("Email Not Entered")
-            return flask.render_template("signup2.html")
+            return flask.render_template("signup.html")
         if password == "":
             flash("Password Not Entered")
-            return flask.render_template("signup2.html")
+            return flask.render_template("signup.html")
 
         if not Users.query.filter_by(email=email).first():
             hashed = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt())
@@ -136,31 +122,20 @@ def signup2():
             db.session.commit()
             flash("User Registered")
 
-            return flask.render_template("login2.html")
+            return flask.render_template("login.html")
         flash(f"{email} is already registered")
 
-    return flask.render_template("signup2.html")
+    return flask.render_template("signup.html")
 
 
 #-----------------------------------------------------------
 
-@app.route("/add", methods=["GET", "POST"])
-@login_required
-def addPlayer():
-    users = [current_user]
-    if flask.request.method == "POST":
-        data = flask.request.form
-        roster = current_user.roster.split(";")
-        newPlayerId = str(data["btn_id"])
-        if len(current_user.roster) == 0:
-            current_user.roster += newPlayerId
-        elif newPlayerId not in roster:
-            current_user.roster += f";{newPlayerId}"
-        else:
-            return flask.redirect("/home")
-        db.session.commit()
+@app.route("/logout")
+def logout():
+    logout_user()
+    flash("You were logged out.")
+    return redirect(url_for("login"))
 
-    return flask.redirect("/home")
 
 
 @app.route("/home", methods=["GET", "POST"])
@@ -209,7 +184,7 @@ def home():
         averageAssists = round(playerGamelog["AST"].mean(), 2)
         len_results = 1
         return flask.render_template(
-            "index.html",
+            "search.html",
             len_results=len_results,
             playerName=playerName,
             averageAssists=averageAssists,
@@ -227,7 +202,7 @@ def home():
         )
 
     return flask.render_template(
-        "index.html",
+        "search.html",
         len_results=0,
         users=users,
         len_roster=len_roster,
@@ -239,40 +214,26 @@ def home():
         pie=pie,
     )
 
-
-@app.route("/signin", methods=["GET", "POST"])
-def signin():
+#  Adding Players to ROster
+@app.route("/add", methods=["GET", "POST"])
+@login_required
+def addPlayer():
+    users = [current_user]
     if flask.request.method == "POST":
-
         data = flask.request.form
-        email = data["email"]
-        password = data["password"]
-        if email == "":
-            flash("Email Not Entered")
-            return flask.render_template("login.html")
-        if password == "":
-            flash("Password Not Entered")
-            return flask.render_template("login.html")
-        user = Users.query.filter_by(email=email).first()
-        if user:
-            if bcrypt.checkpw(password.encode("utf-8"), user.hash):
-                login_user(user)
-                return flask.redirect("/home")
-
-            flash(f"Incorrect Password for {email}")
-            return flask.render_template("login.html")
-
+        roster = current_user.roster.split(";")
+        newPlayerId = str(data["btn_id"])
+        if len(current_user.roster) == 0:
+            current_user.roster += newPlayerId
+        elif newPlayerId not in roster:
+            current_user.roster += f";{newPlayerId}"
         else:
-            flash("User not found")
+            return flask.redirect("/home")
+        db.session.commit()
 
-    return flask.render_template("login.html")
+    return flask.redirect("/home")
 
 
-@app.route("/logout")
-def logout():
-    logout_user()
-    flash("You were logged out.")
-    return redirect(url_for("signin"))
 
 
 app.run(host=os.getenv("IP", "0.0.0.0"), port=int(os.getenv("PORT", 8080)), debug=True)
