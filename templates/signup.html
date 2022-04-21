@@ -69,9 +69,10 @@
                 Register
                 <form method="POST" action="/signup">
 
-                    <input type="text" placeholder="Email" name="r_email" />
-                    <input type="password" placeholder="Password" name="r_password" />
-                    <input type="submit" value="Register" />
+                    <input type="text" placeholder="Email" name="r_email" /><br>
+                    <input type="password" placeholder="Password" name="r_password" /><br>
+                    <!--<input type="submit" value="Register" />-->
+                    <button type="submit">Register</button>
 
                 </form>
                 {% with messages = get_flashed_messages() %}

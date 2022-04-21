@@ -42,6 +42,10 @@
     li a:hover:not(.active) {
         background-color: #111;
     }
+
+    .logincontainer {
+        padding: 16px;
+    }
 </style>
 
 <body>
@@ -77,15 +81,16 @@
 
 
                     Log In
-                    <form method="POST" action="/login">
+                    <div class="logincontainer">
+                        <form method="POST" action="/login">
 
-                        <input type="text" placeholder="Email" name="email" />
-                        <input type="password" placeholder="Password" name="password" />
+                            <input type="text" placeholder="Email" name="email" /><br>
+                            <input type="password" placeholder="Password" name="password" /><br>
 
-                        <button type="submit">Sign In</button>
+                            <button type="submit">Sign In</button>
 
-                    </form>
-
+                        </form>
+                    </div>
 
                     {% with messages = get_flashed_messages() %}
                     {% if messages %}

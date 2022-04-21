@@ -106,20 +106,6 @@
         <!--<h1>{{users[0].email}}'s Roster:</h1>-->
         {% endif %}
         {% for i in range(0,len_roster) %}
-<<<<<<< HEAD
-        <li>
-            <div class="playerContainer">
-                <div class="playerName">{{playerNames[i]}}</div><br>
-                <div class="stats">{{time_frame[i]}}<br>
-                    {{pts[i]}} pts, {{ast[i]}} ast, {{reb[i]}} reb, {{pie[i]}} pie<br>
-
-                    height = {{height[i]}}, weight = {{weight[i]}} lbs <br>
-                    team = {{team[i]}}, jersey # = {{jersey[i]}}, position =
-                    {{position[i]}}
-                </div>
-            </div>
-        </li>
-=======
         <div class="player">
             <li>
                 <div class="playerName">{{playerNames[i]}} {{time_frame[i]}}</div>
@@ -144,7 +130,6 @@
                 </div>
             </li>
         </div>
->>>>>>> 80cb9e873c98480b3f643246abbbc16f68126ce4
         {% endfor %}
     </div>
 
