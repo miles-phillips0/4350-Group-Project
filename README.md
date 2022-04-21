@@ -7,7 +7,7 @@ export HEROKU_POSTGRESQL_IVORY_URL="<YOUR HEROKU POSTGRESQL DB URL>"
 export SECRET_KEY="<YOUR SECRET KEY>"
 ```
 # NBA Player Tracker
-Using the NBA_API we allow you to keep track of some of your favorite basketball players.
+NBA Player Tracker is a web application that allows users to keep track of some of your favorite basketball players. Using the NBA_API to retrieve up to date data on current players.
 
 
 Heroku Link: `https://limitless-lake-88828.herokuapp.com/`
