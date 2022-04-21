@@ -1,19 +1,24 @@
 import os
-from NBA_API import get_player_id
 from flask_login import (
     login_user,
     LoginManager,
     UserMixin,
     login_required,
     logout_user,
-    current_user,)
+    current_user,
+)
 from flask import Flask, flash, redirect, render_template, url_for
 from flask_sqlalchemy import SQLAlchemy
 import flask
 from dotenv import load_dotenv, find_dotenv
 import bcrypt
 from sqlalchemy.dialects.postgresql import BYTEA, ARRAY
-from NBA_API import get_player_id, get_player_info, get_player_games_between_dates, get_advanced_player_info
+from NBA_API import (
+    get_player_id,
+    get_player_info,
+    get_player_games_between_dates,
+    get_advanced_player_info,
+)
 import pandas as pd
 
 # Loading .env Postgres DB & Secret Keys
@@ -47,6 +52,7 @@ class Users(UserMixin, db.Model):
     def getRoster(self):
         return [int(x) for x in self.roster.split(";")]
 
+
 # db.create_all()
 
 # Flask Login Manager
@@ -65,7 +71,7 @@ def index():
     return flask.render_template("entrance.html")
 
 
-@app.route("/search", methods=["GET","POST"])
+@app.route("/search", methods=["GET", "POST"])
 def search():
     users = [current_user]
     roster = current_user.roster.split(";")
@@ -80,14 +86,14 @@ def search():
     pie = [0] * len_roster
     averagePPG = 0
     if len_roster > 0:
-        for i in range (0,len_roster):
+        for i in range(0, len_roster):
             (
                 playerNames[i],
                 time_frame[i],
                 pts[i],
                 ast[i],
                 reb[i],
-                pie[i]
+                pie[i],
             ) = get_player_info(roster[i])
         averagePPG = 0
         for game in pts:
@@ -147,18 +153,18 @@ def search():
         avgPpg=round(averagePPG, 2),
     )
 
+
 # Routing to homepage
 @app.route("/main", methods=["GET", "POST"])
 def main():
     return flask.redirect("/home")
 
 
-#Trying to have an app bar routing Below is my attempt
-#_----------------------------------------------------------
+# Trying to have an app bar routing Below is my attempt
+# _----------------------------------------------------------
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if flask.request.method == "POST":
-        
         data = flask.request.form
         email = data["email"]
         password = data["password"]
@@ -208,7 +214,9 @@ def signup():
 
     return flask.render_template("signup.html")
 
-#-----------------------------------------------------------
+
+# -----------------------------------------------------------
+
 
 @app.route("/logout")
 def logout():
@@ -238,7 +246,7 @@ def home():
     position = [0] * len_roster
     averagePPG = 0
     if len_roster > 0:
-        for i in range (0,len_roster):
+        for i in range(0, len_roster):
             (
                 playerNames[i],
                 time_frame[i],
@@ -250,8 +258,7 @@ def home():
                 weight[i],
                 team[i],
                 jersey[i],
-                position[i]
-                
+                position[i],
             ) = get_advanced_player_info(roster[i])
         averagePPG = 0
         for game in pts:
@@ -267,19 +274,41 @@ def home():
         ast=ast,
         reb=reb,
         pie=pie,
-        height = height,
-        weight = weight,
-        team = team,
-        jersey = jersey,
-        position = position,
-        avgPpg=round(averagePPG, 2)
+        height=height,
+        weight=weight,
+        team=team,
+        jersey=jersey,
+        position=position,
+        avgPpg=round(averagePPG, 2),
+        roster=roster,
     )
+
+
+@app.route("/delete", methods=["GET", "POST"])
+@login_required
+def deletePlayer():
+    if flask.request.method == "POST":
+        data = flask.request.form
+        deletedPlayer = data["player"]
+        roster = current_user.roster.split(";")
+        if deletedPlayer in roster:
+            roster.remove(deletedPlayer)
+        newRoster = ""
+        for player in roster:
+            if len(newRoster) == 0:
+                newRoster += player
+            else:
+                newRoster += f";{player}"
+        current_user.roster = newRoster
+        db.session.commit()
+
+    return flask.redirect("/home")
+
 
 #  Adding Players to Roster
 @app.route("/add", methods=["GET", "POST"])
 @login_required
 def addPlayer():
-    users = [current_user]
     if flask.request.method == "POST":
         data = flask.request.form
         roster = current_user.roster.split(";")
@@ -293,8 +322,6 @@ def addPlayer():
         db.session.commit()
 
     return flask.redirect("/home")
-
-
 
 
 app.run(host=os.getenv("IP", "0.0.0.0"), port=int(os.getenv("PORT", 8080)), debug=True)
