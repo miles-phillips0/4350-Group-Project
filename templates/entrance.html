@@ -2,142 +2,29 @@
 
 <head>
     <link rel="stylesheet" href="static/style.css" />
-    <style>
-        body {
-            /* background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-CvRj7tT4PdciZIcH9AresTUr9q6upLodAUNvqR426fTtBmdNY6nZumfWduEp6wS0dlY&usqp=CAU"); */
-            background-repeat: no-repeat;
-            height: 100%;
-
-            /* background: url("https://wallpaperaccess.com/full/1305339.jpg")  center fixed;  */
-            /* background: url("https://wallpaperaccess.com/full/1305370.jpg")  center fixed;  */
-
-        }
-    </style>
-
-
 </head>
-<style>
-    body {
-        margin: 0;
-    }
-
-    ul {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-        position: fixed;
-        top: 0;
-        width: 100%;
-    }
-
-    li {
-        float: left;
-    }
-
-    li a {
-        display: block;
-        color: white;
-        text-align: center;
-        padding: 0px 14px;
-        text-decoration: none;
-    }
-
-    li a:hover:not(.active) {
-        background-color: #111;
-    }
-
-    .lefttext {
-        text-align: left;
-        font-family: Arial, Helvetica, sans-serif;
-    }
-
-    .textright {
-        text-align: right;
-        padding: 30px;
-        font-family: Arial, Helvetica, sans-serif;
-    }
-</style>
-
-<!-- <Body background="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-CvRj7tT4PdciZIcH9AresTUr9q6upLodAUNvqR426fTtBmdNY6nZumfWduEp6wS0dlY&usqp=CAU">  -->
 
 <body>
     <ul>
-        <li><a href="{{ url_for('index') }}">Home</a></li>
-        <li><a href="{{ url_for('login') }}">Login</a></li>
-        <li><a href="{{ url_for('signup') }}">Sign Up</a></li>
-
+        <h2>
+            <li><a href="{{ url_for('index') }}">Home</a></li>
+            <li><a href="{{ url_for('login') }}">Login</a></li>
+            <li><a href="{{ url_for('signup') }}">Sign Up</a></li>
+        </h2>
     </ul>
+    <br>
+    <br>
     <div class="bg"></div>
-
-
-    </style>
     <div class='container'>
 
-        <head>
-            <link rel="stylesheet" href="static/style.css" />
-        </head>
-
         <body>
-
-            <h2 style="font-family:Papyrus">Join and track all your favorite ballers!
-
-            </h2>
-            <div class="textright">
-                Collaborators: <br>
-                Rayaan Chowdhury <br>
-                Miles Phillips <br>
-                Inesh Raj <br>
-                Kevin Rodgers <br>
-
-
-            </div>
+            <h4 style="font-family:Papyrus">Join and track all your favorite ballers!</h4>
             <img src="/static/ball.gif" alt="NBA Logo" width="400" height="350">
             <br>
-            <div class="lefttext">
-                This app allows you to keep track of any NBA player with up to date statistics. <br>
-                This is helpful to see how your favorite players are doing all at once in one place<br>
-                without having to
-                continously navigate to each individual player's page.<br>
-            </div>
-
-
-
-
-
-            <!-- <div class='container'>
-
-                Log In
-                <form method="POST" action="/login2">
-
-                    <input type="text" placeholder="Email" name="email" />
-                    <input type="text" placeholder="Password" name="password" />
-                    <input type="submit" value="Sign In" />
-
-                </form>
-
-
-                    Register
-                    <form method="POST" action="/">
-
-                        <input type="text" placeholder="Email" name="r_email" />
-                        <input type="text" placeholder="Password" name="r_password" />
-                        <input type="submit" value="Register" />
-
-                    </form>
-                    {% with messages = get_flashed_messages() %}
-                    {% if messages %}
-                    {% for message in messages %}
-                    {{ message }}
-                    {% endfor %}
-                    {% endif %}
-                    {% endwith %}
-
-                </div> -->
-
-
-
+            This app allows you to keep track of any NBA player with up to date statistics. <br>
+            This is helpful to see how your favorite players are doing all at once in one place without having to
+            continously navigate to each individual player's page.<br>
+            Collaborators: Rayaan Chowdhury, Miles Phillips, Inesh Raj, Kevin Rodgers
         </body>
-
 
 </html>

@@ -1,15 +1,13 @@
-<!DOCTYPE html>
 <html>
 
 <head>
     <link rel="stylesheet" href="static/style.css" />
-
-
-
+    <style>
+        form {
+            margin: 0;
+        }
+    </style>
 </head>
-<style>
-
-</style>
 
 <body>
     <ul>
@@ -18,32 +16,15 @@
             <li><a href="{{ url_for('search') }}">Search</a></li>
             <li><a href="{{ url_for('logout') }}">Logout</a></li>
         </h2>
-
     </ul>
-
-
     <div class="userName">
-        {% for user in users %}
-        <div>
-            <h3>{{user.email}}</h3>
-        </div>
-        {% endfor %}
+        <h3>{{user.email}}</h3>
     </div>
-
-    <!--<img src="/static/logo.png" alt="NBA Logo" width="450" height="250"> -->
-
-
-
-
-
-
-
     <div class="roster">
-
         {% if len_roster == 0 %}
         <h4>Search to Add Players to Your Roster!</h4>
         {% else %}
-        <!--<h1>{{users[0].email}}'s Roster:</h1>-->
+        <h1>{{user.email}}'s Roster:</h1>
         {% endif %}
         {% for i in range(0,len_roster) %}
         <div class="player">
@@ -62,10 +43,8 @@
                         pie)
                     </div>
                     <form method="POST" action="/delete">
-
-                        <input type="submit" , value="delete from roster">
+                        <button type="submit" , value="Delete">Delete</button>
                         <input type="hidden" name="player" value={{roster[i]}}>
-
                     </form>
 
                 </div>

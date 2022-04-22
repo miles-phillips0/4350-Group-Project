@@ -22,19 +22,17 @@ body {
 }
 
 
-.logout {
-    text-align: right;
-}
-
+.logout,
 .userName {
     text-align: right;
 }
+
 
 .roster {
     line-height: 1.7;
 }
 
-
+.auto {cursor: url(BBall.cur),auto;}
 
 button {
     background-color: #045faa;
@@ -90,6 +88,16 @@ body {
     margin: 0;
 }
 
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
 ul h2 {
     list-style-type: none;
     margin: 0;
@@ -104,15 +112,18 @@ ul h2 {
 
 li a {
     display: block;
-    color: white;
+    color: #ffffff;
     text-align: center;
     padding: 0px 14px;
     text-decoration: none;
     float: left;
+    transition: all .5s linear;
 }
 
-li a:hover:not(.active) {
-    background-color: #111;
+li a:hover{
+    color: #C9082A;
+    text-shadow: 1px 1px #17408B;
+
 }
 
 .roster {

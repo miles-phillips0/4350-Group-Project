@@ -2,110 +2,31 @@
 
 <head>
     <link rel="stylesheet" href="static/style.css" />
-    <style>
-        body {
-            background-repeat: no-repeat;
-            height: 100%;
-
-        }
-    </style>
-
-
 </head>
-<style>
-    body {
-        margin: 0;
-    }
 
-    ul {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-        position: fixed;
-        top: 0;
-        width: 100%;
-    }
-
-    li {
-        float: left;
-    }
-
-    li a {
-        display: block;
-        color: white;
-        text-align: center;
-        padding: 0px 14px;
-        text-decoration: none;
-    }
-
-    li a:hover:not(.active) {
-        background-color: #111;
-    }
-
-    .logincontainer {
-        padding: 16px;
-    }
-</style>
 
 <body>
     <ul>
-        <li><a href="{{ url_for('index') }}">Home</a></li>
-        <li><a href="{{ url_for('login') }}">Login</a></li>
-        <li><a href="{{ url_for('signup') }}">Sign Up</a></li>
-
+        <h2>
+            <li><a href="{{ url_for('index') }}">Home</a></li>
+            <li><a href="{{ url_for('login') }}">Login</a></li>
+            <li><a href="{{ url_for('signup') }}">Sign Up</a></li>
+        </h2>
     </ul>
-    <div class="bg"></div>
-
-
-    </style>
+    <br>
+    <br>
     <div class='container'>
+        Login
+        <form method="POST" action="/login">
+            <input type="text" placeholder="Email" name="email" /><br>
+            <input type="password" placeholder="Password" name="password" /><br>
+            <button type="submit">Login</button>
+        </form>
+        {% for msg in get_flashed_messages() %}
+        <h4>{{ msg }}</h4>
+        {% endfor %}
 
-        <head>
-            <link rel="stylesheet" href="static/style.css" />
-        </head>
-
-        <body>
-
-
-            <!--<h3 style="font-family:Papyrus">Join and track all your favorite ballers!</h1>-->
-            <!--<img src="/static/ball.gif" alt="NBA Logo" width="325" height="275">-->
-            <div class='containerbod'>
-
-                <div class='container'>
-
-
-
-
-
-
-
-                    Log In
-                    <div class="logincontainer">
-                        <form method="POST" action="/login">
-
-                            <input type="text" placeholder="Email" name="email" /><br>
-                            <input type="password" placeholder="Password" name="password" /><br>
-
-                            <button type="submit">Sign In</button>
-
-                        </form>
-                    </div>
-
-                    {% with messages = get_flashed_messages() %}
-                    {% if messages %}
-                    {% for message in messages %}
-                    {{ message }}
-                    {% endfor %}
-                    {% endif %}
-                    {% endwith %}
-
-                </div>
-
-
-
-        </body>
-
-
+    </div>
+</body>
 
 </html>

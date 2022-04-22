@@ -58,7 +58,7 @@ class Users(UserMixin, db.Model):
 # Flask Login Manager
 login_manager = LoginManager()
 login_manager.init_app(app)
-login_manager.login_view = "signin"
+login_manager.login_view = "signup"
 
 
 @login_manager.user_loader
@@ -73,7 +73,6 @@ def index():
 
 @app.route("/search", methods=["GET", "POST"])
 def search():
-    users = [current_user]
     roster = current_user.roster.split(";")
     len_roster = len(roster)
     if len_roster == 1 and roster[0] == "":
@@ -119,15 +118,14 @@ def search():
         averagePoints = round(playerGamelog["PTS"].mean(), 2)
         averageRebounds = round(playerGamelog["REB"].mean(), 2)
         averageAssists = round(playerGamelog["AST"].mean(), 2)
-        len_results = 1
         return flask.render_template(
             "search.html",
-            len_results=len_results,
+            len_results=1,
             playerName=playerName,
             averageAssists=averageAssists,
             averagePoints=averagePoints,
             averageRebounds=averageRebounds,
-            users=users,
+            user=current_user,
             playerId=playerID,
             len_roster=len_roster,
             playerNames=playerNames,
@@ -142,7 +140,7 @@ def search():
     return flask.render_template(
         "search.html",
         len_results=0,
-        users=users,
+        user=current_user,
         len_roster=len_roster,
         playerNames=playerNames,
         time_frame=time_frame,
@@ -228,7 +226,6 @@ def logout():
 @app.route("/home", methods=["GET", "POST"])
 @login_required
 def home():
-    users = [current_user]
     roster = current_user.roster.split(";")
     len_roster = len(roster)
     if len_roster == 1 and roster[0] == "":
@@ -266,7 +263,7 @@ def home():
 
     return flask.render_template(
         "index.html",
-        users=users,
+        user=current_user,
         len_roster=len_roster,
         playerNames=playerNames,
         time_frame=time_frame,
