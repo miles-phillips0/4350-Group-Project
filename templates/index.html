@@ -1,46 +1,13 @@
-
 <html>
 
 <head>
     <link rel="stylesheet" href="static/style.css" />
-
-
-
+    <style>
+        form {
+            margin: 0;
+        }
+    </style>
 </head>
-<style>
-    body {
-        margin: 0;
-    }
-
-    ul {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-        position: fixed;
-        top: 0;
-        width: 100%;
-    }
-
-
-
-    li a {
-        display: block;
-        color: white;
-        text-align: center;
-        padding: 0px 14px;
-        text-decoration: none;
-        float: left;
-    }
-
-    li a:hover:not(.active) {
-        background-color: #111;
-    }
-
-    .results {
-        text-align: center;
-    }
-</style>
 
 <body>
     <ul>
@@ -49,27 +16,11 @@
             <li><a href="{{ url_for('search') }}">Search</a></li>
             <li><a href="{{ url_for('logout') }}">Logout</a></li>
         </h2>
-
     </ul>
-
-
     <div class="userName">
-        <div>
-            <h3>{{user.email}}</h3>
-        </div>
-
+        <h3>{{user.email}}</h3>
     </div>
-
-
-
-
-
-
-
-
-
     <div class="roster">
-
         {% if len_roster == 0 %}
         <h4>Search to Add Players to Your Roster!</h4>
         {% else %}
@@ -92,10 +43,8 @@
                         pie)
                     </div>
                     <form method="POST" action="/delete">
-
-                        <input type="submit" , value="delete from roster">
+                        <button type="submit" , value="Delete">Delete</button>
                         <input type="hidden" name="player" value={{roster[i]}}>
-
                     </form>
 
                 </div>

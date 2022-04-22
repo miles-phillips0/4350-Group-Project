@@ -6,57 +6,27 @@
 
 
 <body>
-    <ul>        
+    <ul>
         <h2>
-        <li><a href="{{ url_for('index') }}">Home</a></li>
-        <li><a href="{{ url_for('login') }}">Login</a></li>
-        <li><a href="{{ url_for('signup') }}">Sign Up</a></li>
-    </h2>
+            <li><a href="{{ url_for('index') }}">Home</a></li>
+            <li><a href="{{ url_for('login') }}">Login</a></li>
+            <li><a href="{{ url_for('signup') }}">Sign Up</a></li>
+        </h2>
     </ul>
-</br></br>
-    <div class="bg"></div>
-
-
-
+    <br>
+    <br>
     <div class='container'>
+        Login
+        <form method="POST" action="/login">
+            <input type="text" placeholder="Email" name="email" /><br>
+            <input type="password" placeholder="Password" name="password" /><br>
+            <button type="submit">Login</button>
+        </form>
+        {% for msg in get_flashed_messages() %}
+        <h4>{{ msg }}</h4>
+        {% endfor %}
 
-        <head>
-            <link rel="stylesheet" href="static/style.css" />
-        </head>
-
-        <body>
-
-
-
-            <div class='container'>
-
-
-
-
-
-
-
-                Login
-                <form method="POST" action="/login">
-
-                    <input type="text" placeholder="Email" name="email" /></br>
-                    <input type="password" placeholder="Password" name="password" /></br>
-
-                    <button type="submit">Login</button>
-
-                </form>
-
-
-                {% for msg in get_flashed_messages() %}
-                <h4>{{ msg }}</h4>
-                {% endfor %}
-
-            </div>
-
-
-
-        </body>
-
-
+    </div>
+</body>
 
 </html>

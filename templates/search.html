@@ -14,38 +14,37 @@
 
     </ul>
     <div class="userName">
-            <h3>{{user.email}}</h3>
-        </div>
+        <h3>{{user.email}}</h3>
+    </div>
     <h2>Ball Watchers</h2>
     </div>
     <form method="POST" action="/search">
         <input type="text" name="playerSearch" placeholder="Search your favorite Player">
-        <input type="submit" value="Search">
+        <button type="submit" value="Search">Search</button>
     </form>
-<body>
+
+    <body>
 
 
 
-    <div class="results">
-        <o2>
+        <div class="results">
             {%for i in range(0,len_results)%}
             <li>
-                {{playerName}} averages for 2021 : {{averagePoints}} PTS, {{averageAssists}} AST, {{averageRebounds}}
+                {{playerName}} averages for 2021 : {{averagePoints}} PTS, {{averageAssists}} AST,
+                {{averageRebounds}}
                 REB
                 <form method="POST" action="/add">
 
-                    <input type="submit" , value="add">
+                    <input type="submit" , value="Add">
                     <input type="hidden" name="btn_id" value={{playerId}}>
                 </form>
             </li>
             {%endfor%}
-        </o2>
-
-    </div>
+        </div>
 
 
 
-</body>
+    </body>
 
 
 </html>

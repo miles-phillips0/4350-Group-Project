@@ -58,7 +58,7 @@ class Users(UserMixin, db.Model):
 # Flask Login Manager
 login_manager = LoginManager()
 login_manager.init_app(app)
-login_manager.login_view = "signin"
+login_manager.login_view = "signup"
 
 
 @login_manager.user_loader
