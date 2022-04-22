@@ -22,19 +22,17 @@ body {
 }
 
 
-.logout {
-    text-align: right;
-}
-
+.logout,
 .userName {
     text-align: right;
 }
+
 
 .roster {
     line-height: 1.7;
 }
 
-
+.auto {cursor: url(BBall.cur),auto;}
 
 button {
     background-color: #045faa;
@@ -118,15 +116,18 @@ ul h2 {
 
 li a {
     display: block;
-    color: white;
+    color: #ffffff;
     text-align: center;
     padding: 0px 14px;
     text-decoration: none;
     float: left;
+    transition: all .5s linear;
 }
 
-li a:hover:not(.active) {
-    background-color: #111;
+li a:hover{
+    color: #C9082A;
+    text-shadow: 1px 1px #17408B;
+
 }
 
 .roster {
