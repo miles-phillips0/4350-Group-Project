@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html>
 
 <head>
@@ -8,7 +8,38 @@
 
 </head>
 <style>
+    body {
+        margin: 0;
+    }
 
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        position: fixed;
+        top: 0;
+        width: 100%;
+    }
+
+
+
+    li a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 0px 14px;
+        text-decoration: none;
+        float: left;
+    }
+
+    li a:hover:not(.active) {
+        background-color: #111;
+    }
+
+    .results {
+        text-align: center;
+    }
 </style>
 
 <body>
@@ -23,14 +54,13 @@
 
 
     <div class="userName">
-        {% for user in users %}
         <div>
             <h3>{{user.email}}</h3>
         </div>
-        {% endfor %}
+
     </div>
 
-    <!--<img src="/static/logo.png" alt="NBA Logo" width="450" height="250"> -->
+
 
 
 
@@ -43,7 +73,7 @@
         {% if len_roster == 0 %}
         <h4>Search to Add Players to Your Roster!</h4>
         {% else %}
-        <h1>{{users[0].email}}'s Roster:</h1>
+        <h1>{{user.email}}'s Roster:</h1>
         {% endif %}
         {% for i in range(0,len_roster) %}
         <div class="player">

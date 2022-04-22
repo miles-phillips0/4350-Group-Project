@@ -2,61 +2,23 @@
 
 <head>
     <link rel="stylesheet" href="static/style.css" />
-    <style>
-        body {
-            /* background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-CvRj7tT4PdciZIcH9AresTUr9q6upLodAUNvqR426fTtBmdNY6nZumfWduEp6wS0dlY&usqp=CAU"); */
-            background-repeat: no-repeat;
-            height: 100%;
 
-            /* background: url("https://wallpaperaccess.com/full/1305339.jpg")  center fixed;  */
-            /* background: url("https://wallpaperaccess.com/full/1305370.jpg")  center fixed;  */
-
-        }
-    </style>
 
 
 </head>
-<style>
-    body {
-        margin: 0;
-    }
 
-    ul {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-        position: fixed;
-        top: 0;
-        width: 100%;
-    }
-
-    li {
-        float: left;
-    }
-
-    li a {
-        display: block;
-        color: white;
-        text-align: center;
-        padding: 0px 14px;
-        text-decoration: none;
-    }
-
-    li a:hover:not(.active) {
-        background-color: #111;
-    }
-</style>
 
 <!-- <Body background="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-CvRj7tT4PdciZIcH9AresTUr9q6upLodAUNvqR426fTtBmdNY6nZumfWduEp6wS0dlY&usqp=CAU">  -->
 
-<body>
-    <ul>
-        <li><a href="{{ url_for('index') }}">Home</a></li>
-        <li><a href="{{ url_for('login') }}">Login</a></li>
-        <li><a href="{{ url_for('signup') }}">Sign Up</a></li>
-    
-    </ul>
+    <body>
+        <ul>        
+            <h2>
+            <li><a href="{{ url_for('index') }}">Home</a></li>
+            <li><a href="{{ url_for('login') }}">Login</a></li>
+            <li><a href="{{ url_for('signup') }}">Sign Up</a></li>
+        </h2>
+        </ul>
+    </br></br>
     <div class="bg"></div>
 
 
@@ -69,7 +31,7 @@
 
         <body>
 
-            <h6 style="font-family:Papyrus">Join and track all your favorite ballers!</h6>
+            <h4 style="font-family:Papyrus">Join and track all your favorite ballers!</h4>
                 <img src="/static/ball.gif" alt="NBA Logo" width="400" height="350">
                 <br>
                 This app allows you to keep track of any NBA player with up to date statistics. <br>
