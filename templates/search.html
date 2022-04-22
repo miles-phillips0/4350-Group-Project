@@ -3,54 +3,27 @@
 <head>
     <link rel="stylesheet" href="static/style.css" />
 </head>
-<style>
-    body {
-        margin: 0;
-    }
-
-    ul {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-        position: fixed;
-        top: 0;
-        width: 100%;
-    }
-
-
-
-    li a {
-        display: block;
-        color: white;
-        text-align: center;
-        padding: 0px 14px;
-        text-decoration: none;
-        float: left;
-    }
-
-    li a:hover:not(.active) {
-        background-color: #111;
-    }
-
-    .results {
-        text-align: center;
-    }
-</style>
 
 <body>
     <ul>
-        <li><a href="{{ url_for('home') }}">Home</a></li>
-        <li><a href="{{ url_for('search') }}">Search</a></li>
-        <li><a href="{{ url_for('logout') }}">Logout</a></li>
+        <h2>
+            <li><a href="{{ url_for('home') }}">Home</a></li>
+            <li><a href="{{ url_for('search') }}">Search</a></li>
+            <li><a href="{{ url_for('logout') }}">Logout</a></li>
+        </h2>
+
     </ul>
-
-
+    <div class="userName">
+            <h3>{{user.email}}</h3>
+        </div>
     <h2>Ball Watchers</h2>
+    </div>
     <form method="POST" action="/search">
         <input type="text" name="playerSearch" placeholder="Search your favorite Player">
-        <input type="submit" value="Submit">
+        <input type="submit" value="Search">
     </form>
+<body>
+
 
 
     <div class="results">

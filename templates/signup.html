@@ -2,85 +2,32 @@
 
 <head>
     <link rel="stylesheet" href="static/style.css" />
-    <style>
-        body {
-            background-repeat: no-repeat;
-            height: 100%;
 
-        }
-    </style>
-
-
-</head>
-<style>
-    body {
-        margin: 0;
-    }
-
-    ul {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-        position: fixed;
-        top: 0;
-        width: 100%;
-    }
-
-    li {
-        float: left;
-    }
-
-    li a {
-        display: block;
-        color: white;
-        text-align: center;
-        padding: 0px 14px;
-        text-decoration: none;
-    }
-
-    li a:hover:not(.active) {
-        background-color: #111;
-    }
-</style>
 
 
 <body>
-    <ul>
+    <ul>        
+        <h2>
         <li><a href="{{ url_for('index') }}">Home</a></li>
         <li><a href="{{ url_for('login') }}">Login</a></li>
         <li><a href="{{ url_for('signup') }}">Sign Up</a></li>
-
+    </h2>
     </ul>
-    <div class="bg"></div>
-
-
-    </style>
-    <div class='container'>
-
-        <head>
-            <link rel="stylesheet" href="static/style.css" />
-        </head>
-
-        <body>
+</br></br>
 
             <div class='container'>
 
                 Register
                 <form method="POST" action="/signup">
 
-                    <input type="text" placeholder="Email" name="r_email" />
-                    <input type="password" placeholder="Password" name="r_password" />
-                    <input type="submit" value="Register" />
+                    <input type="text" placeholder="Email" name="r_email" /></br>
+                    <input type="password" placeholder="Password" name="r_password" /></br>
+                    <button type="submit" value="Register" />Register</button>
 
                 </form>
-                {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                {% for message in messages %}
-                {{ message }}
+                {% for msg in get_flashed_messages() %}
+                <h4>{{ msg }}</h4>
                 {% endfor %}
-                {% endif %}
-                {% endwith %}
 
             </div>
 
