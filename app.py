@@ -48,10 +48,6 @@ class Users(UserMixin, db.Model):
     hash = db.Column(BYTEA, nullable=False)
     roster = db.Column(db.String(120), default="")
 
-    @property
-    def getRoster(self):
-        return [int(x) for x in self.roster.split(";")]
-
 
 # db.create_all()
 
@@ -73,31 +69,6 @@ def index():
 
 @app.route("/search", methods=["GET", "POST"])
 def search():
-    roster = current_user.roster.split(";")
-    len_roster = len(roster)
-    if len_roster == 1 and roster[0] == "":
-        len_roster -= 1
-    playerNames = [""] * len_roster
-    time_frame = [""] * len_roster
-    pts = [0] * len_roster
-    ast = [0] * len_roster
-    reb = [0] * len_roster
-    pie = [0] * len_roster
-    averagePPG = 0
-    if len_roster > 0:
-        for i in range(0, len_roster):
-            (
-                playerNames[i],
-                time_frame[i],
-                pts[i],
-                ast[i],
-                reb[i],
-                pie[i],
-            ) = get_player_info(roster[i])
-        averagePPG = 0
-        for game in pts:
-            averagePPG += game
-
     if flask.request.method == "POST":
         data = flask.request.form
         playerName = data["playerSearch"]
@@ -110,10 +81,10 @@ def search():
             emptydf = playerGamelog.empty
 
         except AttributeError:
-            return flask.redirect("/home")
+            return flask.redirect("/search")
 
         if emptydf:
-            return flask.redirect("/home")
+            return flask.redirect("/search")
 
         averagePoints = round(playerGamelog["PTS"].mean(), 2)
         averageRebounds = round(playerGamelog["REB"].mean(), 2)
@@ -127,28 +98,12 @@ def search():
             averageRebounds=averageRebounds,
             user=current_user,
             playerId=playerID,
-            len_roster=len_roster,
-            playerNames=playerNames,
-            time_frame=time_frame,
-            pts=pts,
-            ast=ast,
-            reb=reb,
-            pie=pie,
-            avgPpg=round(averagePPG, 2),
         )
 
     return flask.render_template(
         "search.html",
         len_results=0,
         user=current_user,
-        len_roster=len_roster,
-        playerNames=playerNames,
-        time_frame=time_frame,
-        pts=pts,
-        ast=ast,
-        reb=reb,
-        pie=pie,
-        avgPpg=round(averagePPG, 2),
     )
 
 
