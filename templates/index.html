@@ -29,7 +29,7 @@
         {% for i in range(0,len_roster) %}
         <div class="player">
             <li>
-                <div class="playerName">{{playerNames[i]}} {{time_frame[i]}}</div>
+                <div class="playerName">{{player_names[i]}} {{time_frame[i]}}</div>
                 <div class="playerInfo">
                     <div class="heightWeight">
                         Build: {{height[i]}}(feet-inches) {{weight[i]}}lbs
@@ -39,7 +39,7 @@
                         {{position[i]}}
                     </div>
                     <div class="gameStats">
-                        Game Averages: {{pts[i]}} points, {{ast[i]}} assists, {{reb[i]}} rebounds ({{pie[i]}}
+                        Game Averages: {{pts[i]}} PTS, {{ast[i]}} AST, {{reb[i]}} REB, ({{pie[i]}}
                         pie)
                     </div>
                     <form method="POST" action="/delete">

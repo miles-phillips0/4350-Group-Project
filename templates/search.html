@@ -30,13 +30,13 @@
         <div class="results">
             {%for i in range(0,len_results)%}
             <li>
-                {{playerName}} averages for 2021 : {{averagePoints}} PTS, {{averageAssists}} AST,
-                {{averageRebounds}}
+                {{player_name}} averages for 2021 : {{avg_point}} PTS, {{avg_assists}} AST,
+                {{avg_rebounds}}
                 REB
                 <form method="POST" action="/add">
 
                     <input type="submit" , value="Add">
-                    <input type="hidden" name="btn_id" value={{playerId}}>
+                    <input type="hidden" name="btn_id" value={{player_id}}>
                 </form>
             </li>
             {%endfor%}

@@ -1,25 +1,25 @@
+"""Python file to run to create the app"""
+# pylint: disable=no-member, missing-function-docstring, assigning-non-slot
 import os
+import flask
+from flask import flash, redirect, url_for
 from flask_login import (
-    login_user,
     LoginManager,
     UserMixin,
+    login_user,
     login_required,
     logout_user,
     current_user,
 )
-from flask import Flask, flash, redirect, render_template, url_for
 from flask_sqlalchemy import SQLAlchemy
-import flask
 from dotenv import load_dotenv, find_dotenv
 import bcrypt
-from sqlalchemy.dialects.postgresql import BYTEA, ARRAY
+from sqlalchemy.dialects.postgresql import BYTEA
 from NBA_API import (
     get_player_id,
-    get_player_info,
     get_player_games_between_dates,
     get_advanced_player_info,
 )
-import pandas as pd
 
 # Loading .env Postgres DB & Secret Keys
 load_dotenv(find_dotenv())
@@ -43,6 +43,8 @@ db = SQLAlchemy(app)
 
 
 class Users(UserMixin, db.Model):
+    """Creates the DB model for Users"""
+
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), nullable=False)
     hash = db.Column(BYTEA, nullable=False)
@@ -71,14 +73,14 @@ def index():
 def search():
     if flask.request.method == "POST":
         data = flask.request.form
-        playerName = data["playerSearch"]
-        playerID = get_player_id(playerName)
-        playerGamelog = get_player_games_between_dates(
-            "12/25/2020", "12/25/2021", playerID
+        player_name = data["playerSearch"]
+        player_id = get_player_id(player_name)
+        player_game_log = get_player_games_between_dates(
+            "12/25/2020", "12/25/2021", player_id
         )
 
         try:
-            emptydf = playerGamelog.empty
+            emptydf = player_game_log.empty
 
         except AttributeError:
             return flask.redirect("/search")
@@ -86,18 +88,18 @@ def search():
         if emptydf:
             return flask.redirect("/search")
 
-        averagePoints = round(playerGamelog["PTS"].mean(), 2)
-        averageRebounds = round(playerGamelog["REB"].mean(), 2)
-        averageAssists = round(playerGamelog["AST"].mean(), 2)
+        avg_points = round(player_game_log["PTS"].mean(), 2)
+        avg_rebounds = round(player_game_log["REB"].mean(), 2)
+        avg_assists = round(player_game_log["AST"].mean(), 2)
         return flask.render_template(
             "search.html",
             len_results=1,
-            playerName=playerName,
-            averageAssists=averageAssists,
-            averagePoints=averagePoints,
-            averageRebounds=averageRebounds,
+            player_name=player_name,
+            avg_assists=avg_assists,
+            avg_points=avg_points,
+            avg_rebounds=avg_rebounds,
             user=current_user,
-            playerId=playerID,
+            player_id=player_id,
         )
 
     return flask.render_template(
@@ -136,8 +138,7 @@ def login():
             flash(f"Incorrect Password for {email}")
             return flask.render_template("login.html")
 
-        else:
-            flash("User not found")
+        flash("User not found")
 
     return flask.render_template("login.html")
 
@@ -157,8 +158,8 @@ def signup():
 
         if not Users.query.filter_by(email=email).first():
             hashed = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt())
-            newUser = Users(email=email, hash=hashed, roster="")
-            db.session.add(newUser)
+            new_user = Users(email=email, hash=hashed, roster="")
+            db.session.add(new_user)
             db.session.commit()
             flash("User Registered")
 
@@ -185,7 +186,7 @@ def home():
     len_roster = len(roster)
     if len_roster == 1 and roster[0] == "":
         len_roster -= 1
-    playerNames = [""] * len_roster
+    player_names = [""] * len_roster
     time_frame = [""] * len_roster
     pts = [0] * len_roster
     ast = [0] * len_roster
@@ -196,11 +197,10 @@ def home():
     team = [0] * len_roster
     jersey = [0] * len_roster
     position = [0] * len_roster
-    averagePPG = 0
     if len_roster > 0:
         for i in range(0, len_roster):
             (
-                playerNames[i],
+                player_names[i],
                 time_frame[i],
                 pts[i],
                 ast[i],
@@ -212,15 +212,11 @@ def home():
                 jersey[i],
                 position[i],
             ) = get_advanced_player_info(roster[i])
-        averagePPG = 0
-        for game in pts:
-            averagePPG += game
-
     return flask.render_template(
         "index.html",
         user=current_user,
         len_roster=len_roster,
-        playerNames=playerNames,
+        player_names=player_names,
         time_frame=time_frame,
         pts=pts,
         ast=ast,
@@ -231,27 +227,26 @@ def home():
         team=team,
         jersey=jersey,
         position=position,
-        avgPpg=round(averagePPG, 2),
         roster=roster,
     )
 
 
 @app.route("/delete", methods=["GET", "POST"])
 @login_required
-def deletePlayer():
+def delete_player():
     if flask.request.method == "POST":
         data = flask.request.form
-        deletedPlayer = data["player"]
+        deleted_player = data["player"]
         roster = current_user.roster.split(";")
-        if deletedPlayer in roster:
-            roster.remove(deletedPlayer)
-        newRoster = ""
+        if deleted_player in roster:
+            roster.remove(deleted_player)
+        new_roster = ""
         for player in roster:
-            if len(newRoster) == 0:
-                newRoster += player
+            if len(new_roster) == 0:
+                new_roster += player
             else:
-                newRoster += f";{player}"
-        current_user.roster = newRoster
+                new_roster += f";{player}"
+        current_user.roster = new_roster
         db.session.commit()
 
     return flask.redirect("/home")
@@ -260,15 +255,15 @@ def deletePlayer():
 #  Adding Players to Roster
 @app.route("/add", methods=["GET", "POST"])
 @login_required
-def addPlayer():
+def add_player():
     if flask.request.method == "POST":
         data = flask.request.form
         roster = current_user.roster.split(";")
-        newPlayerId = str(data["btn_id"])
+        new_player_id = str(data["btn_id"])
         if len(current_user.roster) == 0:
-            current_user.roster += newPlayerId
-        elif newPlayerId not in roster:
-            current_user.roster += f";{newPlayerId}"
+            current_user.roster += new_player_id
+        elif new_player_id not in roster:
+            current_user.roster += f";{new_player_id}"
         else:
             return flask.redirect("/home")
         db.session.commit()
@@ -276,4 +271,6 @@ def addPlayer():
     return flask.redirect("/home")
 
 
-app.run(host=os.getenv("IP", "0.0.0.0"), port=int(os.getenv("PORT", 8080)), debug=True)
+app.run(
+    host=os.getenv("IP", "0.0.0.0"), port=int(os.getenv("PORT", "8080")), debug=True
+)
