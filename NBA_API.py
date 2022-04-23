@@ -33,7 +33,7 @@ def get_player_info(player_id):
 
 
 def get_advanced_player_info(player_id):
-    """Function to return HeadLine data for specific player id"""
+    """Function to return more detailed HeadLine data for specific player id"""
     player_info = commonplayerinfo.CommonPlayerInfo(player_id=player_id)
     playerdict = player_info.player_headline_stats.get_dict()
     height = player_info.common_player_info.get_dict()["data"][0][
